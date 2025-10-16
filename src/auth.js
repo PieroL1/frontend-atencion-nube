@@ -1,3 +1,5 @@
+import { api } from './api';
+
 // --- NUEVO: flags para controlar el bypass tras logout
 const BYPASS_LOGGED_OUT_KEY = 'BYPASS_LOGGED_OUT';
 

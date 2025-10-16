@@ -1,11 +1,16 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import RoleRoute from './RoleRoute';
+
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import EmployeeDashboard from './pages/EmployeeDashboard';
 import Reclamos from './pages/Reclamos';
 
-// Componente mini para las rutas que aún no implemento
+import Header from './components/header';
+import Footer from './components/footer';
+
 function Placeholder({ title }) {
   return (
     <div className="p-6">
@@ -15,88 +20,61 @@ function Placeholder({ title }) {
   );
 }
 
-// Barra simple de navegación (solo para desarrollo)
-function Topbar() {
+function ProtectedShell() {
   return (
-    <nav className="flex gap-3 p-3 bg-gray-100 text-sm">
-      <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-      <Link to="/atencion" className="hover:underline">Atención</Link>
-      <Link to="/orientacion" className="hover:underline">Orientación</Link>
-      <Link to="/bienestar" className="hover:underline">Bienestar</Link>
-      <Link to="/reclamos" className="hover:underline">Reclamos</Link>
-      <Link to="/comunidad" className="hover:underline">Comunidad</Link>
-    </nav>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-1 bg-[#F6F7F9]">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   );
 }
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/* redirección raíz */}
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        {/* Pública */}
         <Route path="/login" element={<Login />} />
 
-        {/* Rutas protegidas */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Topbar />
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* Redirección raíz */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
+        {/* Protegidas con layout */}
         <Route
-          path="/atencion"
           element={
             <ProtectedRoute>
-              <Topbar />
-              <Placeholder title="Atención al estudiante" />
+              <ProtectedShell />
             </ProtectedRoute>
           }
-        />
-
-        <Route
-          path="/orientacion"
-          element={
-            <ProtectedRoute>
-              <Topbar />
-              <Placeholder title="Orientación vocacional y profesional" />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/bienestar"
-          element={
-            <ProtectedRoute>
-              <Topbar />
-              <Placeholder title="Bienestar estudiantil" />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/reclamos"
-          element={
-            <ProtectedRoute>
-              <Topbar />
-              <Reclamos />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/comunidad"
-          element={
-            <ProtectedRoute>
-              <Topbar />
-              <Placeholder title="Comunidad estudiantil" />
-            </ProtectedRoute>
-          }
-        />
+        >
+          {/* Estudiante */}
+          <Route
+            path="/dashboard"
+            element={
+              <RoleRoute allow="student">
+                <Dashboard />
+              </RoleRoute>
+            }
+          />
+          {/* Empleado */}
+          <Route
+            path="/employee"
+            element={
+              <RoleRoute allow="employee">
+                <EmployeeDashboard />
+              </RoleRoute>
+            }
+          />
+          {/* Módulos */}
+          <Route path="/atencion" element={<Placeholder title="Atención al estudiante" />} />
+          <Route path="/orientacion" element={<Placeholder title="Orientación vocacional y profesional" />} />
+          <Route path="/bienestar" element={<Placeholder title="Bienestar estudiantil" />} />
+          <Route path="/reclamos" element={<Reclamos />} />
+          <Route path="/comunidad" element={<Placeholder title="Comunidad estudiantil" />} />
+        </Route>
 
         {/* 404 */}
         <Route path="*" element={<div className="p-6">404</div>} />

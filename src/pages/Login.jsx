@@ -1,6 +1,8 @@
+// src/pages/Login.jsx
 import { useState } from 'react';
-import { login, isAuthenticated } from '../auth';
+import { login, isAuthenticated, getRole } from '../auth';
 import { Navigate, useNavigate } from 'react-router-dom';
+import logo from '../assets/incadev.png';
 
 export default function Login() {
   const nav = useNavigate();
@@ -8,30 +10,78 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
 
-  if (isAuthenticated()) return <Navigate to="/dashboard" replace />;
+  // Si ya hay sesión, redirijo según rol
+  if (isAuthenticated()) {
+    const role = getRole();
+    return <Navigate to={role === 'employee' ? '/employee' : '/dashboard'} replace />;
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setErr('');
     try {
       await login(email, password);
-      nav('/dashboard');
+      const role = getRole();
+      nav(role === 'employee' ? '/employee' : '/dashboard', { replace: true });
     } catch {
       setErr('Credenciales inválidas');
     }
   };
 
   return (
-    <div style={{display:'grid', placeItems:'center', minHeight:'100vh', background:'#f6f7f9'}}>
-      <form onSubmit={onSubmit} style={{background:'#fff', padding:24, borderRadius:12, minWidth:320, boxShadow:'0 8px 24px rgba(0,0,0,.08)'}}>
-        <h1 style={{marginBottom:12}}>Iniciar sesión</h1>
-        {!!err && <div style={{color:'#b00020', marginBottom:8}}>{err}</div>}
-        <label>Email</label>
-        <input value={email} onChange={e=>setEmail(e.target.value)} type="email" placeholder="juan@uns.edu.pe" style={{width:'100%', padding:8, margin:'4px 0 12px'}} />
-        <label>Contraseña</label>
-        <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="••••••••" style={{width:'100%', padding:8, margin:'4px 0 16px'}} />
-        <button type="submit" style={{width:'100%', padding:10, background:'#111', color:'#fff', borderRadius:8}}>Entrar</button>
-      </form>
+    <div className="min-h-screen w-full overflow-hidden flex items-center justify-center bg-[#F6F7F9]">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 border-0">
+        <div className="flex justify-center mb-6">
+          <img src={logo} alt="Logo" className="h-[190px] w-auto mx-auto" />
+        </div>
+
+        <h1 className="text-2xl font-semibold text-[#111115] text-center">Iniciar sesión</h1>
+        <p className="text-sm text-[#848282] text-center mt-1 mb-6">Accede a tu panel</p>
+
+        {!!err && (
+          <div className="mb-4 text-[#B00020] bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-sm">
+            {err}
+          </div>
+        )}
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm text-[#848282] mb-1">Email</label>
+            <input
+              type="email"
+              placeholder="juan@uns.edu.pe"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className="w-full rounded-xl border border-[#D1D1D1] focus:border-[#26BBFF] outline-none px-3 py-2 text-[#111115]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-[#848282] mb-1">Contraseña</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className="w-full rounded-xl border border-[#D1D1D1] focus:border-[#26BBFF] outline-none px-3 py-2 text-[#111115]"
+            />
+          </div>
+
+          <button type="submit" className="w-full mt-2 py-2.5 rounded-xl bg-[#26BBFF] text-white font-semibold hover:opacity-90 transition">
+            Entrar
+          </button>
+        </form>
+
+        {import.meta.env.VITE_AUTH_BYPASS === 'true' && (
+          <div className="mt-4 text-center">
+            <span className="text-xs text-[#848282]">Modo dev activo • bypass</span>
+          </div>
+        )}
+
+        <div className="mt-6 text-center text-xs text-[#848282]">
+          © {new Date().getFullYear()} Atención al Estudiante
+        </div>
+      </div>
     </div>
   );
 }

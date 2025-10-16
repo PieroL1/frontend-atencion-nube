@@ -1,5 +1,6 @@
+// src/pages/Dashboard.jsx
 import { Link } from 'react-router-dom';
-import { getUser, logout } from '../auth';
+import { getUser } from '../auth';
 
 const items = [
   { name: 'Atención y Trámites', href: '/atencion', desc: 'Consultas y trámites.' },
@@ -11,22 +12,38 @@ const items = [
 
 export default function Dashboard() {
   const user = getUser();
+  const name = user?.full_name || user?.first_name || 'Estudiante';
 
   return (
-    <div style={{padding:24}}>
-      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12}}>
-        <h1>Bienvenido{user ? `, ${user.full_name || user.first_name || user.name}` : ''}</h1>
-        <button onClick={()=>{ logout(); location.href='/login'; }} style={{padding:'6px 12px'}}>Salir</button>
-      </div>
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      <section className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="inline-block px-3 py-1 rounded-full text-xs tracking-wide border border-primary/30 text-primary">
+            Panel principal
+          </span>
+          <span className="text-xs text-gray-500">v1.0</span>
+        </div>
+        <h1 className="text-3xl font-semibold text-[#111115]">Bienvenido, {name}</h1>
+        <p className="text-sm text-gray-600 mt-1">Selecciona un módulo o continúa con tus trámites.</p>
+      </section>
 
-      <div style={{display:'grid', gap:12, gridTemplateColumns:'repeat(auto-fill, minmax(260px, 1fr))'}}>
-        {items.map(x => (
-          <Link key={x.name} to={x.href} style={{background:'#fff', padding:16, borderRadius:12, boxShadow:'0 6px 18px rgba(0,0,0,.06)'}}>
-            <div style={{fontWeight:600}}>{x.name}</div>
-            <div style={{color:'#666', fontSize:14}}>{x.desc}</div>
-          </Link>
-        ))}
-      </div>
+      <section>
+        <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+          {items.map(x => (
+            <Link
+              key={x.name}
+              to={x.href}
+              className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-primary/40 transition group"
+            >
+              <div className="flex items-start justify-between">
+                <div className="font-semibold text-[#111115] group-hover:text-primary">{x.name}</div>
+                <div className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">módulo</div>
+              </div>
+              <div className="text-sm text-gray-600 mt-1">{x.desc}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

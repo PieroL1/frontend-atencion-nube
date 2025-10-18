@@ -13,7 +13,9 @@ export default function Login() {
   // Si ya hay sesión, redirijo según rol
   if (isAuthenticated()) {
     const role = getRole();
-    return <Navigate to={role === 'employee' ? '/employee' : '/dashboard'} replace />;
+    if (role === 'employee') return <Navigate to="/employee" replace />;
+    if (role === 'instructor') return <Navigate to="/bienestar/instructor" replace />;
+    return <Navigate to="/dashboard" replace />; // student
   }
 
   const onSubmit = async (e) => {
@@ -22,7 +24,15 @@ export default function Login() {
     try {
       await login(email, password);
       const role = getRole();
-      nav(role === 'employee' ? '/employee' : '/dashboard', { replace: true });
+      
+      // Redirigir según rol
+      if (role === 'employee') {
+        nav('/employee', { replace: true });
+      } else if (role === 'instructor') {
+        nav('/bienestar/instructor', { replace: true });
+      } else {
+        nav('/dashboard', { replace: true }); // student
+      }
     } catch {
       setErr('Credenciales inválidas');
     }

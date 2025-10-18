@@ -2,12 +2,14 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import RoleRoute from './RoleRoute';
+import { getRole } from './auth';
 
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import Atencion from './pages/atencion';
-
+import BienestarEstudiante from './pages/bienestar/BienestarEstudiante';
+import BienestarInstructor from './pages/bienestar/Instructor/BienestarInstructor';
 
 import Reclamos from './pages/Reclamos';
 
@@ -35,6 +37,20 @@ function ProtectedShell() {
   );
 }
 
+// Componente para redirigir según el rol
+function RoleDashboardRedirect() {
+  const role = getRole();
+  
+  if (role === 'employee') {
+    return <Navigate to="/employee" replace />;
+  }
+  if (role === 'instructor') {
+    return <Navigate to="/bienestar/instructor" replace />;
+  }
+  // Por defecto (student o desconocido)
+  return <Navigate to="/dashboard" replace />;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -42,8 +58,15 @@ export default function App() {
         {/* Pública */}
         <Route path="/login" element={<Login />} />
 
-        {/* Redirección raíz */}
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        {/* Redirección raíz según rol */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <RoleDashboardRedirect />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Protegidas con layout */}
         <Route
@@ -71,10 +94,27 @@ export default function App() {
               </RoleRoute>
             }
           />
+          {/* Instructor - Dashboard */}
+          <Route
+            path="/bienestar/instructor"
+            element={
+              <RoleRoute allow="instructor">
+                <BienestarInstructor />
+              </RoleRoute>
+            }
+          />
+          
           {/* Módulos */}
           <Route path="/atencion" element={<Atencion />} />
           <Route path="/orientacion" element={<Placeholder title="Orientación vocacional y profesional" />} />
-          <Route path="/bienestar" element={<Placeholder title="Bienestar estudiantil" />} />
+          <Route
+            path="/bienestar"
+            element={
+              <RoleRoute allow="student">
+                <BienestarEstudiante />
+              </RoleRoute>
+            }
+          />
           <Route path="/reclamos" element={<Reclamos />} />
           <Route path="/comunidad" element={<Placeholder title="Comunidad estudiantil" />} />
         </Route>

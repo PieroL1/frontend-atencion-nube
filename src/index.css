@@ -21,3 +21,21 @@ body { margin: 0; background: #F6F7F9; color: theme('colors.ink'); }
     @apply inline-block px-3 py-1 rounded-full text-xs tracking-wider border border-primary/40 text-primary;
   }
 }
+
+/* Animaciones para toast */
+@layer utilities {
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  }
+}

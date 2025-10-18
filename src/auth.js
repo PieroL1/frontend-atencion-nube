@@ -10,7 +10,7 @@ const DEV_USER = {
   last_name: 'User',
   full_name: 'Dev User',
   email: 'dev@uns.edu.pe',
-  role: ['employee'], // Cambia a 'employee' para probar dashboard de empleado
+  role: ['student'], // Cambia a 'employee' para probar dashboard de empleado
 };
 
 const DEV_TOKEN = 'DEV-BYPASS-TOKEN';
@@ -80,6 +80,14 @@ export function getRole() {
   return u.role;
 }
 
-export const isStudent = () => getRole() === 'student';
-export const isEmployee = () => getRole() === 'employee';
+export function hasRole(role) {
+  const u = getUser();
+  if (!u) return false;
+  if (Array.isArray(u.role)) return u.role.includes(role);
+  return u.role === role;
+}
+
+export const isStudent = () => hasRole('student');
+export const isEmployee = () => hasRole('employee');
+export const isInstructor = () => hasRole('instructor');
 

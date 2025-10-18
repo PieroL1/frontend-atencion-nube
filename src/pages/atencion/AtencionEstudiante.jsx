@@ -44,13 +44,29 @@ export default function AtencionEstudiante() {
   async function createSolicitud(e) {
     e.preventDefault();
     if (!form.type_id || !form.description.trim()) return;
-    await solicitudes_create({
-      student_id: studentId,
-      type_id: Number(form.type_id),
-      description: form.description.trim(),
-    });
-    setForm({ type_id: '', description: '' });
-    await loadSolicitudes();
+    
+    try {
+      console.log('Creando solicitud con:', {
+        student_id: studentId,
+        type_id: Number(form.type_id),
+        description: form.description.trim(),
+      });
+      
+      const result = await solicitudes_create({
+        student_id: studentId,
+        type_id: Number(form.type_id),
+        description: form.description.trim(),
+      });
+      
+      console.log('Solicitud creada:', result);
+      setForm({ type_id: '', description: '' });
+      await loadSolicitudes();
+    } catch (error) {
+      console.error('Error al crear solicitud:', error);
+      console.error('Status HTTP:', error.response?.status);
+      console.error('Detalles del error:', JSON.stringify(error.response?.data, null, 2));
+      alert(`Error al crear solicitud: ${JSON.stringify(error.response?.data, null, 2)}`);
+    }
   }
 
   async function openDetalle(id) {

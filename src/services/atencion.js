@@ -268,6 +268,7 @@ export async function solicitudes_create(body) {
   }
 
   // Backend: estado inicial es 'in_progress' (no tiene 'received')
+  // El Resource se devuelve directamente (no envuelto en { success, data })
   const { data: item } = await api.post('/solicitudes-atencion/create', body);
   const tipo = mockTipos.find(t => t.id_type === item.type_id);
   return {

@@ -3,18 +3,16 @@ import { api } from '../api';
 import { isBypass } from '../auth';
 
 /* ===========================================================
-   1) Estados de negocio (solo 3): Recibido / En proceso / Resuelto
-   NOTA: El backend real solo tiene: in_progress, completed, failed
-   Como NO existe "received", usamos in_progress como inicial
+   1) Estados de negocio: Recibido / En proceso / Resuelto
    =========================================================== */
 const DB_TO_UI = {
-  received: 'Recibido',       // Solo en mocks
-  in_progress: 'En proceso',  // Backend real usa este como inicial
+  received: 'Recibido',
+  in_progress: 'En proceso',
   completed: 'Resuelto',
-  failed: 'Fallido',          // Backend tiene este pero no lo usamos en UI
+  failed: 'Fallido',
 };
 const UI_TO_DB = {
-  'Recibido': 'in_progress',  // Mapeamos "Recibido" a "in_progress" (backend no tiene received)
+  'Recibido': 'received',
   'En proceso': 'in_progress',
   'Resuelto': 'completed',
   'Fallido': 'failed',

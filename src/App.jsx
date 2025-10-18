@@ -6,6 +6,9 @@ import RoleRoute from './RoleRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
+import Atencion from './pages/atencion';
+
+
 import Reclamos from './pages/Reclamos';
 
 import Header from './components/header';
@@ -69,7 +72,7 @@ export default function App() {
             }
           />
           {/* Módulos */}
-          <Route path="/atencion" element={<Placeholder title="Atención al estudiante" />} />
+          <Route path="/atencion" element={<Atencion />} />
           <Route path="/orientacion" element={<Placeholder title="Orientación vocacional y profesional" />} />
           <Route path="/bienestar" element={<Placeholder title="Bienestar estudiantil" />} />
           <Route path="/reclamos" element={<Reclamos />} />

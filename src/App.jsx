@@ -11,7 +11,11 @@ import Atencion from './pages/atencion';
 import BienestarEstudiante from './pages/bienestar/BienestarEstudiante';
 import BienestarInstructor from './pages/bienestar/Instructor/BienestarInstructor';
 
-import Reclamos from './pages/Reclamos';
+import ReclamosRouter from './pages/reclamos/ReclamosRouter';
+import ReclamosEstudiante from './pages/reclamos/ReclamosEstudiante';
+import ReclamoDetalle from './pages/reclamos/ReclamoDetalle';
+import ClaimForm from './pages/reclamos/ClaimForm';
+import ReclamosEmployee from './pages/reclamos/employee/ReclamosEmployee';
 
 import Header from './components/header';
 import Footer from './components/footer';
@@ -115,7 +119,46 @@ export default function App() {
               </RoleRoute>
             }
           />
-          <Route path="/reclamos" element={<Reclamos />} />
+          
+          {/* Reclamos - Router principal */}
+          <Route path="/reclamos" element={<ReclamosRouter />} />
+          
+          {/* Reclamos - Estudiante */}
+          <Route
+            path="/reclamos-estudiante"
+            element={
+              <RoleRoute allow="student">
+                <ReclamosEstudiante />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/reclamos/nuevo"
+            element={
+              <RoleRoute allow="student">
+                <ClaimForm />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/reclamos/:id"
+            element={
+              <RoleRoute allow="student">
+                <ReclamoDetalle />
+              </RoleRoute>
+            }
+          />
+          
+          {/* Reclamos - Employee */}
+          <Route
+            path="/reclamos-employee"
+            element={
+              <RoleRoute allow="employee">
+                <ReclamosEmployee />
+              </RoleRoute>
+            }
+          />
+          
           <Route path="/comunidad" element={<Placeholder title="Comunidad estudiantil" />} />
         </Route>
 

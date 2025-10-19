@@ -54,3 +54,8 @@ export const toast = {
   info: (message) => createToast(message, "info"),
   warning: (message) => createToast(message, "warning"),
 };
+
+// Export adicional para compatibilidad
+export const showToast = (message, type = "success") => {
+  return createToast(message, type);
+};

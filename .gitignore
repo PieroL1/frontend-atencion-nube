@@ -25,3 +25,7 @@ dist-ssr
 
 # Internal integration notes
 _internal/
+/__internal/
+/__internal/**
+/__internal/reclamos-notes/
+/__internal/reclamos-notes/**

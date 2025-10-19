@@ -10,7 +10,7 @@ const DEV_USER = {
   last_name: 'User',
   full_name: 'Dev User',
   email: 'dev@uns.edu.pe',
-  role: ['student'], // Cambia a 'employee' para probar dashboard de empleado
+  role: ['employee'], // Cambia a 'employee' para probar dashboard de empleado
 };
 
 const DEV_TOKEN = 'DEV-BYPASS-TOKEN';

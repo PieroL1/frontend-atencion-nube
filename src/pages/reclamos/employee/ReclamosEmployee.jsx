@@ -129,8 +129,16 @@ const ReclamosEmployee = () => {
       // 2. Si hay nota, crear asignación separada
       if (stateNote.trim()) {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        // Validar que existe employee_id
+        if (!user.employee_id) {
+          alert('Error: No se encontró el ID de empleado. Por favor, cierra sesión e inicia sesión nuevamente.');
+          setActionLoading(false);
+          return;
+        }
+        
         await crearAsignacion(selectedClaim.id, {
-          responsible_id: user.id,
+          responsible_id: user.employee_id,
           comments: `Estado cambiado a ${newState}. ${stateNote.trim()}`,
         });
       }
@@ -154,9 +162,18 @@ const ReclamosEmployee = () => {
     setActionLoading(true);
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log('👤 Usuario desde localStorage:', user);
+      console.log('🆔 employee_id:', user.employee_id, '| user.id:', user.id);
+      
+      // Validar que existe employee_id
+      if (!user.employee_id) {
+        alert('Error: No se encontró el ID de empleado. Por favor, cierra sesión e inicia sesión nuevamente.');
+        setActionLoading(false);
+        return;
+      }
       
       await crearAsignacion(selectedClaim.id, {
-        responsible_id: user.id,
+        responsible_id: user.employee_id,
         comments: commentText.trim(),
       });
       
@@ -169,6 +186,7 @@ const ReclamosEmployee = () => {
       setCommentText('');
     } catch (error) {
       console.error('Error al agregar comentario:', error);
+      console.error('Detalles del error:', error.response?.data);
     } finally {
       setActionLoading(false);
     }

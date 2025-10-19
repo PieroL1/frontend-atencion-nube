@@ -384,16 +384,8 @@ export async function historial_list(id) {
     params: { request_id: id }
   });
   // Backend devuelve: { success, data: [...], message }
-  // Mapear "id" a "id_history" para compatibilidad
-  return (response.data || []).map(h => ({
-    id_history: h.id,
-    id_attention_students_request: h.id_attention_students_request,
-    previous_state: h.previous_state,
-    new_state: h.new_state,
-    comment: h.comment,
-    change_date: h.change_date,
-    id_employee_responsible: h.id_employee_responsible,
-  }));
+  // Ahora el Resource devuelve directamente con id_history
+  return response.data || [];
 }
 
 // POST /historial-solicitudes/create  { comment }
@@ -422,16 +414,9 @@ export async function historial_addComentario(id, comment) {
     change_date: new Date().toISOString(),
     id_employee_responsible: null,
   });
-  const h = response.data;
-  return {
-    id_history: h.id,
-    id_attention_students_request: h.id_attention_students_request,
-    previous_state: h.previous_state,
-    new_state: h.new_state,
-    comment: h.comment,
-    change_date: h.change_date,
-    id_employee_responsible: h.id_employee_responsible,
-  };
+  // Backend devuelve: { success, data: {...}, message }
+  // Ahora el Resource devuelve directamente con id_history
+  return response.data;
 }
 
 /* ===========================================================

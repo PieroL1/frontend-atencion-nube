@@ -87,10 +87,8 @@ const mapAssignment = (a) => ({
   code: a.id_assignment ?? null,
   claim_id: a.claim_id,
   responsible_id: a.responsible_id,
-  // Mapeo de relación responsible desde ClaimAssignmentResource
-  responsible_name: a.responsible 
-    ? `${a.responsible.first_name} ${a.responsible.last_name}`.trim()
-    : (a.responsible_name ?? null),
+  // El backend ahora envía responsible_name directamente
+  responsible_name: a.responsible_name || `Responsable #${a.responsible_id}`,
   comments: a.comments ?? '',
   event_date: a.event_date,
 });
@@ -132,8 +130,12 @@ export const listarClaims = async (params = {}) => {
       queryParams = rest;
     }
     
+    console.log('🔍 Filtros enviados al backend:', queryParams);
+    
     const { data } = await api.get(url, { params: queryParams });
     const arr = normalizeArray(data);
+    
+    console.log('✅ Data recibida del backend:', arr);
     
     // Backend funcionando correctamente
     disableDemoMode();
@@ -229,7 +231,15 @@ export const crearClaim = async (payload) => {
 export const getClaim = async (id) => {
   try {
     const { data } = await api.get(`/reclamos/get/${id}`);
-    return mapClaim(data);
+    console.log('🔍 Data del claim desde backend:', data);
+    
+    // El backend puede devolver {data: ClaimResource} o ClaimResource directamente
+    const claimData = data.data || data;
+    console.log('📦 Claim data desempaquetado:', claimData);
+    
+    const mapped = mapClaim(claimData);
+    console.log('✅ Claim mapeado:', mapped);
+    return mapped;
   } catch (error) {
     // Modo demo
     if (shouldUseDemoMode(error)) {
@@ -292,8 +302,11 @@ export const patchEstadoClaim = async (id, { new_state, priority, note }) => {
 export const listarAsignaciones = async (id) => {
   try {
     const { data } = await api.get(`/asignaciones-reclamos/getAllByClaim/${id}`);
+    console.log('📋 Asignaciones desde backend:', data);
     const arr = normalizeArray(data);
-    return arr.map(mapAssignment);
+    const mapped = arr.map(mapAssignment);
+    console.log('✅ Asignaciones mapeadas:', mapped);
+    return mapped;
   } catch (error) {
     // Modo demo
     if (shouldUseDemoMode(error)) {
@@ -320,12 +333,20 @@ export const listarAsignaciones = async (id) => {
  */
 export const crearAsignacion = async (id, { responsible_id, comments }) => {
   try {
-    const { data } = await api.post('/asignaciones-reclamos/create', {
+    // Formato de fecha compatible con Laravel: YYYY-MM-DD HH:mm:ss
+    const now = new Date();
+    const eventDate = now.toISOString().slice(0, 19).replace('T', ' ');
+    
+    const payload = {
       claim_id: id,  // Backend espera claim_id, no id en URL
       responsible_id,
       comments,
-      event_date: new Date().toISOString(),  // Fecha actual
-    });
+      event_date: eventDate,  // Formato: 2025-10-19 01:50:25
+    };
+    
+    console.log('📤 Enviando asignación:', payload);
+    
+    const { data } = await api.post('/asignaciones-reclamos/create', payload);
     
     showToast('Comentario agregado correctamente', 'success');
     
@@ -340,6 +361,8 @@ export const crearAsignacion = async (id, { responsible_id, comments }) => {
     }
     
     console.error('Error al crear asignación:', error);
+    console.error('📋 Errores de validación:', error.response?.data);
+    console.error('📋 Campos con error:', JSON.stringify(error.response?.data?.message, null, 2));
     const msg = error.response?.data?.message || 'Error al agregar comentario';
     showToast(msg, 'error');
     throw error;

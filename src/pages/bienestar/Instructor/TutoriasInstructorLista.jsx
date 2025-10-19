@@ -24,19 +24,26 @@ export default function TutoriasInstructorLista({
       
       // Usar instructor_id si está disponible, sino user.id como fallback
       const instructorId = user.instructor_id || user.id;
+      console.log('🔍 Cargando tutorías para instructor_id:', instructorId);
+      
       const params = { instructor_id: instructorId };
 
-      // Aplicar filtro de estado si existe
-      if (filtroEstado && filtroEstado.length > 0) {
-        // Si hay múltiples estados, el backend debería soportar array
-        // Por ahora, tomamos el primero o hacemos múltiples requests
-        params.state = Array.isArray(filtroEstado) ? filtroEstado[0] : filtroEstado;
-      }
+      // NO filtrar por estado en la petición, hacer filtro en cliente
+      // El backend no soporta múltiples estados en un solo request
 
       const data = await listarTutorias(params);
+      console.log('📦 Tutorías recibidas del backend:', data.length);
+
+      // Aplicar filtro de estado en cliente (soporta múltiples)
+      let filtradas = data;
+      if (filtroEstado && filtroEstado.length > 0) {
+        filtradas = filtradas.filter(t => filtroEstado.includes(t.state));
+        console.log('📋 Después de filtrar por estado', filtroEstado, ':', filtradas.length);
+      }
 
       // Aplicar filtro de fecha en cliente
-      const filtradas = filtrarPorFecha(data, filtroFecha);
+      filtradas = filtrarPorFecha(filtradas, filtroFecha);
+      console.log('📅 Después de filtrar por fecha:', filtradas.length);
 
       setTutorias(filtradas);
     } catch (err) {

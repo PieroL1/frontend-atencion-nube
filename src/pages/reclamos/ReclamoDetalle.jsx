@@ -127,7 +127,7 @@ const ReclamoDetalle = () => {
                 {getEstadoLabel(claim.state)}
               </span>
               <span className={`inline-flex items-center px-3 py-1 rounded text-sm font-medium ${getPrioridadColor(claim.priority)}`}>
-                Prioridad: {claim.priority}
+                {claim.priority ? `Prioridad: ${claim.priority}` : '⚠️ Sin revisar'}
               </span>
             </div>
           </div>

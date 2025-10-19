@@ -123,11 +123,8 @@ export const obtenerTutoria = async (id) => {
  */
 export const crearTutoria = async (payload) => {
   try {
-    // IMPORTANTE: Backend NO acepta "Pendiente", mapear a "Agendada"
-    let state = payload.state ?? "Pendiente";
-    if (state === "Pendiente") {
-      state = "Agendada"; // Gap #1: mapeo temporal
-    }
+    // Estado por defecto: "Pendiente" (el instructor debe aceptarla)
+    const state = payload.state ?? "Pendiente";
     
     // Ruta real: POST /api/tutorias/create
     const response = await api.post("/tutorias/create", {
@@ -160,9 +157,7 @@ export const actualizarTutoria = async (id, payload) => {
     if (payload.scheduled_date !== undefined) body.scheduled_date = payload.scheduled_date;
     if (payload.type !== undefined) body.type_tutorial = payload.type;
     if (payload.state !== undefined) {
-      let state = payload.state;
-      if (state === "Pendiente") state = "Agendada";
-      body.state = state;
+      body.state = payload.state; // Ya no necesita mapeo
     }
     
     const response = await api.put(`/tutorias/${id}`, body);
@@ -185,15 +180,12 @@ export const cambiarEstadoTutoria = async (id, newState, note = "") => {
     // Solución temporal: obtener tutoría completa y hacer PUT
     const tutoria = await obtenerTutoria(id);
     
-    let state = newState;
-    if (state === "Pendiente") state = "Agendada";
-    
     const response = await api.put(`/tutorias/${id}`, {
       estudent_id: tutoria.student_id,
       instructor_id: tutoria.instructor_id,
       scheduled_date: tutoria.scheduled_date,
       type_tutorial: tutoria.type,
-      state: state,
+      state: newState, // Ya no necesita mapeo
     });
     
     return response;

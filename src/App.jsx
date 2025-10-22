@@ -17,6 +17,12 @@ import ReclamoDetalle from './pages/reclamos/ReclamoDetalle';
 import ClaimForm from './pages/reclamos/ClaimForm';
 import ReclamosEmployee from './pages/reclamos/employee/ReclamosEmployee';
 
+import Foros from './pages/comunidad/Foros';
+import ForoDetalle from './pages/comunidad/ForoDetalle';
+import Eventos from './pages/comunidad/Eventos';
+import Chat from './pages/comunidad/Chat';
+import GestionForos from './pages/empleado/GestionForos';
+
 import Header from './components/header';
 import Footer from './components/footer';
 
@@ -159,7 +165,22 @@ export default function App() {
             }
           />
           
-          <Route path="/comunidad" element={<Placeholder title="Comunidad estudiantil" />} />
+          {/* Gestión de Foros - Employee */}
+          <Route
+            path="/empleado/foros"
+            element={
+              <RoleRoute allow="employee">
+                <GestionForos />
+              </RoleRoute>
+            }
+          />
+          
+          {/* Comunidad Estudiantil */}
+          <Route path="/comunidad/foros" element={<Foros />} />
+          <Route path="/comunidad/foros/:id" element={<ForoDetalle />} />
+          <Route path="/comunidad/eventos" element={<Eventos />} />
+          <Route path="/comunidad/chat" element={<Chat />} />
+          <Route path="/comunidad" element={<Foros />} />
         </Route>
 
         {/* 404 */}

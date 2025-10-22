@@ -5,6 +5,7 @@ import { getUser } from '../auth';
 const items = [
   { name: 'Bandeja de Atenciones', href: '/atencion', desc: 'Prioriza y cambia estados.' },
   { name: 'Reclamos y Sugerencias', href: '/reclamos-employee', desc: 'Gestiona reclamos y sugerencias.' },
+  { name: 'Gestión de Foros', href: '/empleado/foros', desc: 'Aprobar y gestionar foros comunitarios.' },
   { name: 'Reportes', href: '#', desc: 'Indicadores y métricas.' },
 ];
 

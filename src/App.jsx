@@ -22,6 +22,7 @@ import ForoDetalle from './pages/comunidad/ForoDetalle';
 import Eventos from './pages/comunidad/Eventos';
 import Chat from './pages/comunidad/Chat';
 import GestionForos from './pages/empleado/GestionForos';
+import OrientacionWizard from './pages/orientacion/OrientacionWizard';
 
 import Header from './components/header';
 import Footer from './components/footer';
@@ -116,7 +117,14 @@ export default function App() {
           
           {/* Módulos */}
           <Route path="/atencion" element={<Atencion />} />
-          <Route path="/orientacion" element={<Placeholder title="Orientación vocacional y profesional" />} />
+          <Route
+            path="/orientacion"
+            element={
+              <RoleRoute allow="student">
+                <OrientacionWizard />
+              </RoleRoute>
+            }
+          />
           <Route
             path="/bienestar"
             element={

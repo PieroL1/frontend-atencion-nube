@@ -88,7 +88,7 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
         instructor_id: parseInt(form.instructor_id),
         scheduled_date,
         type: form.type,
-        state: "Pendiente",
+        state: "Agendada", // Cambiado de "Pendiente" a "Agendada"
       });
 
       // Reset form

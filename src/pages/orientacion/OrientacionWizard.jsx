@@ -6,6 +6,7 @@ import Loader from '../../components/orientacion/Loader';
 import EmptyState from '../../components/orientacion/EmptyState';
 import ErrorState from '../../components/orientacion/ErrorState';
 import { showToast } from '../../utils/toast';
+import { getUser } from '../../auth';
 import {
   getActiveQuestionnaire,
   getFirstQuestion,
@@ -49,7 +50,7 @@ const OrientacionWizard = () => {
       setError(null);
 
       // 1. Obtener usuario autenticado
-      const userData = await getCurrentUser();
+      const userData = getCurrentUser();
       setUser(userData);
 
       // 2. Obtener cuestionario activo
@@ -247,32 +248,13 @@ const OrientacionWizard = () => {
     }
   };
 
-  // Helper para obtener usuario actual (adaptar según tu implementación de auth)
-  const getCurrentUser = async () => {
-    // Esto debe adaptarse a cómo manejas la autenticación en tu app
-    // Por ahora, retornamos un usuario mock
-    try {
-      const response = await fetch('/api/user', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('No autorizado');
-      }
-
-      const userData = await response.json();
-      return userData;
-    } catch (err) {
-      // Fallback para desarrollo
-      console.warn('Usando usuario mock para desarrollo');
-      return {
-        id: 1,
-        student_id: 1,
-        name: 'Usuario de prueba'
-      };
+  // Helper para obtener usuario actual
+  const getCurrentUser = () => {
+    const user = getUser();
+    if (!user) {
+      throw new Error('Usuario no autenticado');
     }
+    return user;
   };
 
   // ==================== Renders ====================

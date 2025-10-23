@@ -5,12 +5,13 @@ export function isBypass() {
 }
 
 const DEV_USER = {
-  id: 1,
-  first_name: 'Dev',
-  last_name: 'User',
-  full_name: 'Dev User',
-  email: 'dev@uns.edu.pe',
-  role: ['employee'], // Cambia a 'employee' para probar dashboard de empleado
+  id: 701,
+  first_name: 'Estudiante',
+  last_name: 'Test',
+  full_name: 'Estudiante Test 1',
+  email: 'estudiante1@uns.edu.pe',
+  role: ['student'],
+  student_id: 701, // ⭐ ID de la tabla students
 };
 
 const DEV_TOKEN = 'DEV-BYPASS-TOKEN';

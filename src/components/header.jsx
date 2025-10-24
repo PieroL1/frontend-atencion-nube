@@ -23,14 +23,27 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
-      <div className="max-w-7xl mx-auto h-14 px-4 flex items-center justify-between">
+    <header className="w-full bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20 shadow-sm">
+      <div className="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between">
         {/* Marca */}
         <div className="flex items-center gap-3">
-          <img src={logo} alt="INCADEV" className="h-6 w-auto" />
-          <span className="text-ink dark:text-slate font-semibold tracking-wide">
-            Atención y Soporte – <span className="text-primary">INCADEV</span>
-          </span>
+          {/* Logo con efecto de brillo */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/5 dark:to-blue-500/5 p-2 rounded-lg border border-primary/20 dark:border-primary/10">
+              <img src={logo} alt="INCADEV" className="h-7 w-auto" />
+            </div>
+          </div>
+          
+          {/* Texto de marca mejorado */}
+          <div className="hidden sm:block">
+            <div className="text-ink dark:text-slate font-bold tracking-wide text-sm">
+              Atención y Soporte
+            </div>
+            <div className="text-xs text-primary font-semibold -mt-0.5">
+              INCADEV
+            </div>
+          </div>
 
           {/* Nav principal */}
           <nav className="hidden lg:flex items-center gap-1 ml-4">

@@ -57,4 +57,17 @@ body { margin: 0; background: #F6F7F9; color: theme('colors.ink'); }
     animation: slide-in 0.3s ease-out;
     transition: all 0.3s ease-out;
   }
+
+  /* Animación flotante para ilustración de login */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 }

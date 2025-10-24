@@ -63,8 +63,11 @@ function RoleDashboardRedirect() {
 }
 
 export default function App() {
+  // 🚀 basename dinámico: solo en producción usa "/bienestar"
+  const basename = import.meta.env.MODE === 'production' ? '/bienestar' : '';
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         {/* Pública */}
         <Route path="/login" element={<Login />} />

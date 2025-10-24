@@ -138,10 +138,10 @@ export default function AtencionEmpleado() {
     <div className="max-w-7xl mx-auto px-6 py-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-semibold text-[#111115]">Atenciones (Empleado)</h1>
-          <p className="text-sm text-gray-600">Gestiono solicitudes: cambio estado, comento y administro tipos.</p>
+          <h1 className="text-2xl font-semibold text-ink dark:text-slate">Atenciones (Empleado)</h1>
+          <p className="text-sm text-slate dark:text-slate/70">Gestiono solicitudes: cambio estado, comento y administro tipos.</p>
         </div>
-        <button onClick={() => setShowTipos(true)} className="text-xs px-3 py-2 rounded-lg border border-primary/40 text-primary hover:bg-primary/10">
+        <button onClick={() => setShowTipos(true)} className="text-xs px-3 py-2 rounded-lg border border-primary/40 dark:border-primary/30 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/20">
           Admin. Tipos
         </button>
       </div>
@@ -155,13 +155,13 @@ export default function AtencionEmpleado() {
               setTab(t); 
               loadSolicitudes({ tab: t }); 
             }}
-            className={`px-3 py-1.5 rounded-full text-sm border transition ${tab === t ? 'bg-primary/10 text-primary border-primary/40' : 'border-gray-300 text-[#111115]/80 hover:bg-gray-100'}`}
+            className={`px-3 py-1.5 rounded-full text-sm border transition ${tab === t ? 'bg-primary/10 dark:bg-primary/20 text-primary border-primary/40 dark:border-primary/30' : 'border-gray-300 dark:border-slate/30 text-slate dark:text-slate/70 hover:bg-gray-100 dark:hover:bg-night/50'}`}
           >
             {t}
           </button>
         ))}
         <select
-          className="ml-2 px-3 py-1.5 rounded-xl border border-gray-300 bg-white text-sm"
+          className="ml-2 px-3 py-1.5 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate text-sm"
           value={typeFilter}
           onChange={e => { 
             setTypeFilter(e.target.value); 
@@ -172,19 +172,19 @@ export default function AtencionEmpleado() {
           {tipos.map(t => <option key={t.id_type} value={t.id_type}>{t.name_type}</option>)}
         </select>
         <input
-          className="px-3 py-2 rounded-xl border border-gray-300 bg-white text-sm flex-1 min-w-[220px]"
+          className="px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate text-sm flex-1 min-w-[220px]"
           placeholder="Buscar en descripción…"
           value={q}
           onChange={e => setQ(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && loadSolicitudes()}
         />
-        <button onClick={() => loadSolicitudes()} className="px-3 py-2 rounded-xl bg-[#26BBFF] text-white text-sm">Buscar</button>
+        <button onClick={() => loadSolicitudes()} className="px-3 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm transition-colors">Buscar</button>
       </div>
 
       {/* Tabla */}
-      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+      <div className="bg-white dark:bg-night border border-gray-200 dark:border-slate/20 rounded-2xl overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-gray-600">
+          <thead className="bg-gray-50 dark:bg-ink text-slate dark:text-slate/70">
             <tr>
               <th className="text-left px-4 py-2">ID</th>
               <th className="text-left px-4 py-2">Tipo</th>
@@ -196,19 +196,19 @@ export default function AtencionEmpleado() {
           </thead>
           <tbody>
             {filtered.map(row => (
-              <tr key={row.id} className="border-t border-gray-100 hover:bg-gray-50">
-                <td className="px-4 py-2">{row.id}</td>
-                <td className="px-4 py-2">{row.type_name || row.type_id}</td>
-                <td className="px-4 py-2">{row.description}</td>
+              <tr key={row.id} className="border-t border-gray-100 dark:border-slate/20 hover:bg-gray-50 dark:hover:bg-night/50">
+                <td className="px-4 py-2 text-ink dark:text-slate">{row.id}</td>
+                <td className="px-4 py-2 text-ink dark:text-slate">{row.type_name || row.type_id}</td>
+                <td className="px-4 py-2 text-ink dark:text-slate">{row.description}</td>
                 <td className="px-4 py-2"><EstadoBadge value={row.state_ui || row.current_state} /></td>
-                <td className="px-4 py-2">{formatDate(row.creation_date)}</td>
+                <td className="px-4 py-2 text-slate dark:text-slate/70">{formatDate(row.creation_date)}</td>
                 <td className="px-4 py-2 text-right">
-                  <button onClick={() => openDetalle(row.id)} className="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100">Ver</button>
+                  <button onClick={() => openDetalle(row.id)} className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-slate/30 text-ink dark:text-slate hover:bg-gray-100 dark:hover:bg-night/50">Ver</button>
                 </td>
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr><td colSpan="6" className="px-4 py-6 text-center text-gray-500">No hay solicitudes</td></tr>
+              <tr><td colSpan="6" className="px-4 py-6 text-center text-slate dark:text-slate/70">No hay solicitudes</td></tr>
             )}
           </tbody>
         </table>
@@ -217,26 +217,26 @@ export default function AtencionEmpleado() {
       {/* Detalle */}
       {selected && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-          <div className="bg-white w-full max-w-3xl rounded-2xl shadow-xl overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b">
+          <div className="bg-white dark:bg-night w-full max-w-3xl rounded-2xl shadow-xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b dark:border-slate/20">
               <div>
-                <div className="text-sm text-gray-500">Solicitud #{selected.id}</div>
-                <div className="font-semibold">{selected.type_name || selected.type_id}</div>
+                <div className="text-sm text-slate dark:text-slate/70">Solicitud #{selected.id}</div>
+                <div className="font-semibold text-ink dark:text-slate">{selected.type_name || selected.type_id}</div>
               </div>
-              <button className="text-sm px-3 py-1.5 rounded-lg border" onClick={() => setSelected(null)}>Cerrar</button>
+              <button className="text-sm px-3 py-1.5 rounded-lg border border-gray-300 dark:border-slate/30 text-ink dark:text-slate hover:bg-gray-50 dark:hover:bg-night/50" onClick={() => setSelected(null)}>Cerrar</button>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4 p-5">
               <div className="space-y-2">
-                <div className="text-sm text-gray-500">Descripción</div>
-                <div className="text-[#111115] bg-gray-50 rounded-xl p-3">{selected.description}</div>
+                <div className="text-sm text-slate dark:text-slate/70">Descripción</div>
+                <div className="text-ink dark:text-slate bg-gray-50 dark:bg-ink rounded-xl p-3">{selected.description}</div>
 
-                <div className="text-sm text-gray-500 mt-3">Estado actual</div>
+                <div className="text-sm text-slate dark:text-slate/70 mt-3">Estado actual</div>
                 <div className="flex items-center gap-2">
                   <EstadoBadge value={selected.state_ui || selected.current_state} />
                   <select
                     disabled={changing}
-                    className="px-3 py-2 rounded-xl border border-gray-300 bg-white text-sm"
+                    className="px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate text-sm"
                     value={selected.state_ui || selected.current_state}
                     onChange={(e) => changeEstado(e.target.value)}
                   >
@@ -246,25 +246,25 @@ export default function AtencionEmpleado() {
               </div>
 
               <div>
-                <div className="font-semibold mb-2">Historial</div>
+                <div className="font-semibold text-ink dark:text-slate mb-2">Historial</div>
                 <div className="space-y-2 max-h-64 overflow-auto pr-1">
                   {historial.map(ev => (
-                    <div key={ev.id_history} className="border border-gray-200 rounded-xl p-3">
-                      <div className="text-xs text-gray-500">{formatDate(ev.change_date)}</div>
-                      <div className="text-sm">{ev.comment || <span className="text-gray-400">sin comentario</span>}</div>
+                    <div key={ev.id_history} className="border border-gray-200 dark:border-slate/20 rounded-xl p-3 bg-white dark:bg-ink">
+                      <div className="text-xs text-slate dark:text-slate/70">{formatDate(ev.change_date)}</div>
+                      <div className="text-sm text-ink dark:text-slate">{ev.comment || <span className="text-gray-400 dark:text-slate/50">sin comentario</span>}</div>
                       {(ev.previous_state || ev.new_state) && (
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-xs text-slate dark:text-slate/70 mt-1">
                           {renderStateChange(ev.previous_state, ev.new_state)}
                         </div>
                       )}
                     </div>
                   ))}
-                  {historial.length === 0 && <div className="text-sm text-gray-500">Sin eventos aún</div>}
+                  {historial.length === 0 && <div className="text-sm text-slate dark:text-slate/70">Sin eventos aún</div>}
                 </div>
 
                 <div className="flex gap-2 mt-3">
                   <input
-                    className="flex-1 px-3 py-2 rounded-xl border border-gray-300 bg-white text-sm"
+                    className="flex-1 px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate text-sm"
                     placeholder="Agrego un comentario…"
                     value={newComment}
                     onChange={e => setNewComment(e.target.value)}
@@ -272,7 +272,7 @@ export default function AtencionEmpleado() {
                   <button
                     disabled={changing || !newComment.trim()}
                     onClick={addComment}
-                    className="px-3 py-2 rounded-xl bg-[#26BBFF] text-white text-sm disabled:opacity-50"
+                    className="px-3 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm disabled:opacity-50 transition-colors"
                   >
                     Comentar
                   </button>
@@ -286,43 +286,43 @@ export default function AtencionEmpleado() {
       {/* Modal: Tipos */}
       {showTipos && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b">
-              <div className="font-semibold">Tipos de Solicitud</div>
-              <button className="text-sm px-3 py-1.5 rounded-lg border" onClick={() => setShowTipos(false)}>Cerrar</button>
+          <div className="bg-white dark:bg-night w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b dark:border-slate/20">
+              <div className="font-semibold text-ink dark:text-slate">Tipos de Solicitud</div>
+              <button className="text-sm px-3 py-1.5 rounded-lg border border-gray-300 dark:border-slate/30 text-ink dark:text-slate hover:bg-gray-50 dark:hover:bg-night/50" onClick={() => setShowTipos(false)}>Cerrar</button>
             </div>
 
             <div className="p-5">
               <div className="flex items-end gap-2 mb-4">
                 <div className="flex-1">
-                  <label className="text-xs text-gray-600">Nombre</label>
+                  <label className="text-xs text-slate dark:text-slate/70">Nombre</label>
                   <input
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white text-sm"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate text-sm"
                     value={tipoForm.name_type}
                     onChange={e => setTipoForm(f => ({ ...f, name_type: e.target.value }))}
                   />
                 </div>
                 <div className="flex-1">
-                  <label className="text-xs text-gray-600">Descripción</label>
+                  <label className="text-xs text-slate dark:text-slate/70">Descripción</label>
                   <input
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white text-sm"
+                    className="w-full px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate text-sm"
                     value={tipoForm.description}
                     onChange={e => setTipoForm(f => ({ ...f, description: e.target.value }))}
                   />
                 </div>
-                <button onClick={saveTipo} className="px-3 py-2 rounded-xl bg-[#26BBFF] text-white text-sm">
+                <button onClick={saveTipo} className="px-3 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm transition-colors">
                   {tipoEdit ? 'Actualizar' : 'Agregar'}
                 </button>
                 {tipoEdit && (
-                  <button onClick={() => { setTipoEdit(null); setTipoForm({ name_type: '', description: '' }); }} className="px-3 py-2 rounded-xl border text-sm">
+                  <button onClick={() => { setTipoEdit(null); setTipoForm({ name_type: '', description: '' }); }} className="px-3 py-2 rounded-xl border border-gray-300 dark:border-slate/30 text-ink dark:text-slate hover:bg-gray-50 dark:hover:bg-night/50 text-sm transition-colors">
                     Cancelar
                   </button>
                 )}
               </div>
 
-              <div className="border border-gray-200 rounded-2xl overflow-hidden">
+              <div className="border border-gray-200 dark:border-slate/20 rounded-2xl overflow-hidden">
                 <table className="w-full text-sm">
-                  <thead className="bg-gray-50 text-gray-600">
+                  <thead className="bg-gray-50 dark:bg-ink text-slate dark:text-slate/70">
                     <tr>
                       <th className="text-left px-4 py-2">ID</th>
                       <th className="text-left px-4 py-2">Nombre</th>
@@ -332,18 +332,18 @@ export default function AtencionEmpleado() {
                   </thead>
                   <tbody>
                     {tipos.map(t => (
-                      <tr key={t.id_type} className="border-t border-gray-100">
-                        <td className="px-4 py-2">{t.id_type}</td>
-                        <td className="px-4 py-2">{t.name_type}</td>
-                        <td className="px-4 py-2">{t.description}</td>
+                      <tr key={t.id_type} className="border-t border-gray-100 dark:border-slate/20">
+                        <td className="px-4 py-2 text-ink dark:text-slate">{t.id_type}</td>
+                        <td className="px-4 py-2 text-ink dark:text-slate">{t.name_type}</td>
+                        <td className="px-4 py-2 text-slate dark:text-slate/70">{t.description}</td>
                         <td className="px-4 py-2 text-right">
-                          <button className="px-2 py-1.5 text-xs rounded-lg border mr-2" onClick={() => startEditTipo(t)}>Editar</button>
-                          <button className="px-2 py-1.5 text-xs rounded-lg border" onClick={() => removeTipo(t.id_type)}>Eliminar</button>
+                          <button className="px-2 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-slate/30 text-ink dark:text-slate hover:bg-gray-50 dark:hover:bg-night/50 mr-2" onClick={() => startEditTipo(t)}>Editar</button>
+                          <button className="px-2 py-1.5 text-xs rounded-lg border border-red-300 dark:border-red-700/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20" onClick={() => removeTipo(t.id_type)}>Eliminar</button>
                         </td>
                       </tr>
                     ))}
                     {tipos.length === 0 && (
-                      <tr><td colSpan="4" className="px-4 py-6 text-center text-gray-500">Sin tipos</td></tr>
+                      <tr><td colSpan="4" className="px-4 py-6 text-center text-slate dark:text-slate/70">Sin tipos</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -354,7 +354,7 @@ export default function AtencionEmpleado() {
         </div>
       )}
 
-      {loading && <div className="mt-4 text-sm text-gray-500">Cargando…</div>}
+      {loading && <div className="mt-4 text-sm text-slate dark:text-slate/70">Cargando…</div>}
     </div>
   );
 }

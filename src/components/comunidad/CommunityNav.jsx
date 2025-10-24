@@ -16,7 +16,7 @@ export default function CommunityNav() {
   };
 
   return (
-    <div className="bg-white shadow-sm border-b mb-6">
+    <div className="bg-white dark:bg-night shadow-sm border-b border-gray-200 dark:border-slate/20 mb-6">
       <div className="max-w-7xl mx-auto px-6">
         <nav className="flex space-x-1">
           {tabs.map((tab) => (
@@ -27,8 +27,8 @@ export default function CommunityNav() {
                 px-6 py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2
                 ${
                   isActive(tab.path)
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate hover:border-gray-300 dark:hover:border-slate/40'
                 }
               `}
             >

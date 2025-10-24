@@ -56,15 +56,15 @@ const ReclamoDetalle = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#26BBFF]"></div>
+      <div className="min-h-screen bg-gray-50 dark:bg-ink flex justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   if (!claim) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-ink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <EmptyState
             icon="❌"
@@ -73,7 +73,7 @@ const ReclamoDetalle = () => {
             action={
               <button
                 onClick={() => navigate('/reclamos')}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#26BBFF] hover:bg-[#1da9e6]"
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-colors"
               >
                 Volver al listado
               </button>
@@ -85,13 +85,13 @@ const ReclamoDetalle = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-ink">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <button
             onClick={() => navigate('/reclamos')}
-            className="mb-4 text-sm text-gray-600 hover:text-gray-900 flex items-center"
+            className="mb-4 text-sm text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate flex items-center"
           >
             ← Volver al listado
           </button>
@@ -102,22 +102,22 @@ const ReclamoDetalle = () => {
                 <span
                   className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                     claim.type === 'Reclamo'
-                      ? 'bg-red-100 text-red-800'
-                      : 'bg-blue-100 text-blue-800'
+                      ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400'
+                      : 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400'
                   }`}
                 >
                   {claim.type}
                 </span>
                 {claim.code && (
-                  <span className="text-sm text-gray-500">#{claim.code}</span>
+                  <span className="text-sm text-slate dark:text-slate/70">#{claim.code}</span>
                 )}
               </div>
               
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">
+              <h1 className="text-2xl font-bold text-ink dark:text-slate mb-1">
                 {claim.category || 'Sin categoría'}
               </h1>
               
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate dark:text-slate/70">
                 Creado el {formatDate(claim.creation_date)}
               </p>
             </div>
@@ -137,18 +137,18 @@ const ReclamoDetalle = () => {
       {/* Contenido */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Descripción */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-6 mb-6">
+          <h2 className="text-lg font-semibold text-ink dark:text-slate mb-4">
             Descripción
           </h2>
-          <p className="text-gray-700 whitespace-pre-wrap">
+          <p className="text-slate dark:text-slate/70 whitespace-pre-wrap">
             {claim.description}
           </p>
         </div>
 
         {/* Asignaciones / Historial */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-6">
+          <h2 className="text-lg font-semibold text-ink dark:text-slate mb-4">
             Historial de Seguimiento
           </h2>
           

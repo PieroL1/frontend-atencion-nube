@@ -63,7 +63,7 @@ export default function ActividadesLista({ refresh, onNuevaActividad }) {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filtroTipo === tipo
                 ? "bg-primary text-white"
-                : "bg-white text-ink border border-gray-300 hover:bg-gray-50"
+                : "bg-white dark:bg-night text-ink dark:text-slate border border-gray-300 dark:border-slate/30 hover:bg-gray-50 dark:hover:bg-night/70"
             }`}
           >
             {tipo}
@@ -73,8 +73,8 @@ export default function ActividadesLista({ refresh, onNuevaActividad }) {
 
       {/* Lista de actividades */}
       {actividades.length === 0 ? (
-        <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-          <p className="text-slate">No hay actividades de tipo "{filtroTipo}"</p>
+        <div className="bg-white dark:bg-night rounded-lg border border-gray-200 dark:border-slate/20 p-8 text-center">
+          <p className="text-slate dark:text-slate/70">No hay actividades de tipo "{filtroTipo}"</p>
           <button
             onClick={() => setFiltroTipo("Todas")}
             className="mt-3 text-primary hover:underline text-sm"

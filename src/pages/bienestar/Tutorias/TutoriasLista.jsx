@@ -74,10 +74,10 @@ export default function TutoriasLista({ refresh, onNuevaTutoria }) {
       {/* Próximas Tutorías */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-ink">
+          <h2 className="text-xl font-semibold text-ink dark:text-slate">
             Próximas Tutorías
             {tutorias.proximas.length > 0 && (
-              <span className="ml-2 text-sm font-normal text-slate">
+              <span className="ml-2 text-sm font-normal text-slate dark:text-slate/70">
                 ({tutorias.proximas.length})
               </span>
             )}
@@ -85,8 +85,8 @@ export default function TutoriasLista({ refresh, onNuevaTutoria }) {
         </div>
 
         {tutorias.proximas.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-            <p className="text-slate">No tienes tutorías próximas</p>
+          <div className="bg-white dark:bg-night rounded-lg border border-gray-200 dark:border-slate/20 p-6 text-center">
+            <p className="text-slate dark:text-slate/70">No tienes tutorías próximas</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -105,10 +105,10 @@ export default function TutoriasLista({ refresh, onNuevaTutoria }) {
       {/* Tutorías Pasadas */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-ink">
+          <h2 className="text-xl font-semibold text-ink dark:text-slate">
             Tutorías Pasadas
             {tutorias.pasadas.length > 0 && (
-              <span className="ml-2 text-sm font-normal text-slate">
+              <span className="ml-2 text-sm font-normal text-slate dark:text-slate/70">
                 ({tutorias.pasadas.length})
               </span>
             )}
@@ -116,8 +116,8 @@ export default function TutoriasLista({ refresh, onNuevaTutoria }) {
         </div>
 
         {tutorias.pasadas.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-            <p className="text-slate">No hay tutorías pasadas</p>
+          <div className="bg-white dark:bg-night rounded-lg border border-gray-200 dark:border-slate/20 p-6 text-center">
+            <p className="text-slate dark:text-slate/70">No hay tutorías pasadas</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

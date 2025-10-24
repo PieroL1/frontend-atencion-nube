@@ -31,11 +31,11 @@ export function renderStateChange(prev, next) {
 export default function EstadoBadge({ value }) {
   const v = normalizeStateUI(value);
   const cls =
-    v === 'Resuelto'   ? 'bg-green-100 text-green-700 border-green-300' :
-    v === 'En proceso' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' :
-                         'bg-gray-100 text-gray-700 border-gray-300';
+    v === 'Resuelto'   ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-300 dark:border-green-700/30' :
+    v === 'En proceso' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-300 dark:border-yellow-700/30' :
+                         'bg-gray-100 dark:bg-slate/20 text-gray-700 dark:text-slate border-gray-300 dark:border-slate/30';
   return (
-    <span className={`inline-block px-2 py-0.5 text-xs rounded-full border ${cls}`}>
+    <span className={`inline-block px-2 py-0.5 text-xs rounded-full border whitespace-nowrap ${cls}`}>
       {v}
     </span>
   );

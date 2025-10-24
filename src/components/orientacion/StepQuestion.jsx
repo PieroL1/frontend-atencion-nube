@@ -20,16 +20,16 @@ const StepQuestion = ({
       {/* Progress indicator */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-600">
+          <span className="text-sm font-medium text-slate dark:text-slate/70">
             Paso {stepNumber} de {totalSteps}
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-slate dark:text-slate/70">
             {Math.round((stepNumber / totalSteps) * 100)}% completado
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 dark:bg-ink/50 rounded-full h-2">
           <div 
-            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+            className="bg-primary h-2 rounded-full transition-all duration-300"
             style={{ width: `${(stepNumber / totalSteps) * 100}%` }}
           />
         </div>
@@ -37,11 +37,11 @@ const StepQuestion = ({
 
       {/* Question */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        <h2 className="text-3xl font-bold text-ink dark:text-slate mb-2">
           {question.text_question || question.question_text || question.text}
         </h2>
         {question.description && (
-          <p className="text-gray-600 mt-2">
+          <p className="text-slate dark:text-slate/70 mt-2">
             {question.description}
           </p>
         )}
@@ -50,7 +50,7 @@ const StepQuestion = ({
       {/* Response options */}
       <div className="space-y-3">
         {responses.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-slate dark:text-slate/70">
             No hay opciones disponibles para esta pregunta
           </div>
         ) : (
@@ -63,8 +63,8 @@ const StepQuestion = ({
                 w-full p-6 rounded-xl border-2 text-left transition-all duration-200
                 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]
                 ${selectedId === response.id
-                  ? 'border-blue-600 bg-blue-50 shadow-md'
-                  : 'border-gray-200 bg-white hover:border-blue-300'
+                  ? 'border-primary bg-primary/10 dark:bg-primary/20 shadow-md'
+                  : 'border-gray-200 dark:border-slate/20 bg-white dark:bg-night/50 hover:border-primary/50 dark:hover:border-primary/50'
                 }
                 ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
               `}
@@ -74,8 +74,8 @@ const StepQuestion = ({
                 <div className={`
                   flex-shrink-0 w-6 h-6 rounded-full border-2 mt-1 mr-4 flex items-center justify-center
                   ${selectedId === response.id 
-                    ? 'border-blue-600 bg-blue-600' 
-                    : 'border-gray-300'
+                    ? 'border-primary bg-primary' 
+                    : 'border-gray-300 dark:border-slate/30'
                   }
                 `}>
                   {selectedId === response.id && (
@@ -87,11 +87,11 @@ const StepQuestion = ({
 
                 {/* Response content */}
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  <h3 className="text-lg font-semibold text-ink dark:text-slate mb-1">
                     {response.text_response || response.response_text || response.text}
                   </h3>
                   {response.description && (
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-slate dark:text-slate/70">
                       {response.description}
                     </p>
                   )}
@@ -103,7 +103,7 @@ const StepQuestion = ({
                   ${selectedId === response.id ? 'translate-x-1' : ''}
                 `}>
                   <svg 
-                    className={`w-6 h-6 ${selectedId === response.id ? 'text-blue-600' : 'text-gray-400'}`} 
+                    className={`w-6 h-6 ${selectedId === response.id ? 'text-primary' : 'text-slate dark:text-slate/50'}`} 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ const StepQuestion = ({
 
       {/* Helper text */}
       {responses.length > 0 && (
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-slate dark:text-slate/70 mt-6">
           Selecciona la opción que mejor se ajuste a tus intereses
         </p>
       )}

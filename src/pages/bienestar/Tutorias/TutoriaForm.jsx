@@ -114,11 +114,11 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-ink mb-4">Nueva Tutoría</h3>
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-night rounded-lg border border-gray-200 dark:border-slate/20 p-6">
+      <h3 className="text-lg font-semibold text-ink dark:text-slate mb-4">Nueva Tutoría</h3>
 
       {errors.submit && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+        <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm rounded-lg">
           {errors.submit}
         </div>
       )}
@@ -126,15 +126,15 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
       <div className="space-y-4">
         {/* Tipo */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1.5">
+          <label className="block text-sm font-medium text-ink dark:text-slate mb-1.5">
             Tipo de Tutoría *
           </label>
           <select
             name="type"
             value={form.type}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-              errors.type ? "border-red-300" : "border-gray-300"
+            className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+              errors.type ? "border-red-300 dark:border-red-800" : "border-gray-300 dark:border-slate/30"
             }`}
           >
             <option value="Académica">Académica</option>
@@ -145,7 +145,7 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
 
         {/* Fecha */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1.5">
+          <label className="block text-sm font-medium text-ink dark:text-slate mb-1.5">
             Fecha *
           </label>
           <input
@@ -154,24 +154,24 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
             value={form.fecha}
             onChange={handleChange}
             min={new Date().toISOString().split("T")[0]}
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-              errors.fecha ? "border-red-300" : "border-gray-300"
+            className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+              errors.fecha ? "border-red-300 dark:border-red-800" : "border-gray-300 dark:border-slate/30"
             }`}
           />
-          {errors.fecha && <p className="text-red-600 text-xs mt-1">{errors.fecha}</p>}
+          {errors.fecha && <p className="text-red-600 dark:text-red-400 text-xs mt-1">{errors.fecha}</p>}
         </div>
 
         {/* Hora */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1.5">
+          <label className="block text-sm font-medium text-ink dark:text-slate mb-1.5">
             Hora *
           </label>
           <select
             name="hora"
             value={form.hora}
             onChange={handleChange}
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-              errors.hora ? "border-red-300" : "border-gray-300"
+            className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+              errors.hora ? "border-red-300 dark:border-red-800" : "border-gray-300 dark:border-slate/30"
             }`}
           >
             {horas.map((h) => (
@@ -185,11 +185,11 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
 
         {/* Instructor */}
         <div>
-          <label className="block text-sm font-medium text-ink mb-1.5">
+          <label className="block text-sm font-medium text-ink dark:text-slate mb-1.5">
             Instructor *
           </label>
           {loadingInstructores ? (
-            <div className="w-full px-3 py-2 border border-gray-300 rounded-lg text-slate">
+            <div className="w-full px-3 py-2 border border-gray-300 dark:border-slate/30 rounded-lg text-slate dark:text-slate/70 bg-white dark:bg-night/50">
               Cargando instructores...
             </div>
           ) : (
@@ -197,8 +197,8 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
               name="instructor_id"
               value={form.instructor_id}
               onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-                errors.instructor_id ? "border-red-300" : "border-gray-300"
+              className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                errors.instructor_id ? "border-red-300 dark:border-red-800" : "border-gray-300 dark:border-slate/30"
               }`}
             >
               <option value="">Selecciona un instructor</option>
@@ -210,7 +210,7 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
             </select>
           )}
           {errors.instructor_id && (
-            <p className="text-red-600 text-xs mt-1">{errors.instructor_id}</p>
+            <p className="text-red-600 dark:text-red-400 text-xs mt-1">{errors.instructor_id}</p>
           )}
         </div>
       </div>
@@ -228,7 +228,7 @@ export default function TutoriaForm({ onSuccess, onCancel }) {
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="px-4 py-2.5 border border-gray-300 text-ink rounded-lg hover:bg-gray-50 font-medium transition-colors"
+            className="px-4 py-2.5 border border-gray-300 dark:border-slate/30 text-ink dark:text-slate rounded-lg hover:bg-gray-50 dark:hover:bg-night/50 font-medium transition-colors"
           >
             Cancelar
           </button>

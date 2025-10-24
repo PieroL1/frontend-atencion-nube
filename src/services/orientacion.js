@@ -358,6 +358,7 @@ export const getResultsByStudent = async (studentId) => {
 
 /**
  * Obtiene el resultado más reciente de un estudiante para un cuestionario
+ * Incluye las rutas asociadas al resultado (recalculándolas desde las respuestas)
  */
 export const getLatestResultByQuestionnaire = async (studentId, questionnaireId) => {
   try {
@@ -366,7 +367,77 @@ export const getLatestResultByQuestionnaire = async (studentId, questionnaireId)
       .filter(r => r.questionnaire_id === questionnaireId)
       .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     
-    return filtered[0] || null;
+    const latestResult = filtered[0];
+    
+    if (!latestResult) {
+      return null;
+    }
+
+    // Obtener las respuestas del estudiante para recalcular las rutas
+    try {
+      console.log(`🔍 Recalculando rutas para resultado ${latestResult.id}...`);
+      
+      // Obtener todas las respuestas del estudiante
+      const answers = await getAnswersByStudent(studentId);
+      
+      // Filtrar respuestas de este cuestionario
+      const questionnaireAnswers = answers.filter(a => a.questionnaire_id === questionnaireId);
+      console.log(`� Respuestas encontradas:`, questionnaireAnswers);
+      
+      if (questionnaireAnswers.length === 0) {
+        console.warn('⚠️ No se encontraron respuestas para este cuestionario');
+        return {
+          result: latestResult,
+          routes: [],
+          profile: latestResult.recommended_profile || 'Perfil definido',
+          recommendation: latestResult.recommendation || 'Recomendaciones personalizadas'
+        };
+      }
+      
+      // Extraer Q1 y Q2 response IDs
+      // Asumiendo que Q1 es la primera pregunta y Q2 es la segunda
+      const sortedAnswers = questionnaireAnswers.sort((a, b) => a.id - b.id);
+      const q1ResponseId = sortedAnswers[0]?.response_id;
+      const q2ResponseId = sortedAnswers[1]?.response_id;
+      
+      console.log(`🎯 Response IDs: Q1=${q1ResponseId}, Q2=${q2ResponseId}`);
+      
+      if (!q1ResponseId || !q2ResponseId) {
+        console.warn('⚠️ No se encontraron ambas respuestas (Q1 y Q2)');
+        return {
+          result: latestResult,
+          routes: [],
+          profile: latestResult.recommended_profile || 'Perfil definido',
+          recommendation: latestResult.recommendation || 'Recomendaciones personalizadas'
+        };
+      }
+      
+      // Recalcular las rutas usando la misma lógica que al finalizar
+      const routesData = await calculateRecommendedRoutes(
+        studentId,
+        questionnaireId,
+        q1ResponseId,
+        q2ResponseId
+      );
+      
+      console.log(`✅ Rutas recalculadas exitosamente:`, routesData);
+      
+      return {
+        result: latestResult,
+        routes: routesData.routes || [],
+        profile: latestResult.recommended_profile || routesData.profile,
+        recommendation: latestResult.recommendation || routesData.recommendation
+      };
+    } catch (routeError) {
+      console.error('❌ Error al recalcular rutas del resultado:', routeError);
+      // Devolver el resultado aunque falle la recalculación de rutas
+      return {
+        result: latestResult,
+        routes: [],
+        profile: latestResult.recommended_profile || 'Perfil definido',
+        recommendation: latestResult.recommendation || 'Recomendaciones personalizadas'
+      };
+    }
   } catch (error) {
     console.error('Error al obtener último resultado:', error);
     throw error;

@@ -85,22 +85,22 @@ const ReclamosEstudiante = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-ink">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-ink dark:text-slate">
                 Mis Reclamos y Sugerencias
               </h1>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-slate dark:text-slate/70">
                 Gestiona tus reclamos y sugerencias
               </p>
             </div>
             <button
               onClick={handleNewClaim}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#26BBFF] hover:bg-[#1da9e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#26BBFF]"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
             >
               + Nuevo
             </button>
@@ -117,17 +117,17 @@ const ReclamosEstudiante = () => {
 
       {/* Filtros */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-4 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* Tipo */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Tipo
               </label>
               <select
                 value={filters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
               >
                 <option value="">Todos</option>
                 <option value={TIPOS.RECLAMO}>Reclamo</option>
@@ -137,13 +137,13 @@ const ReclamosEstudiante = () => {
 
             {/* Prioridad */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Prioridad
               </label>
               <select
                 value={filters.priority}
                 onChange={(e) => handleFilterChange('priority', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
               >
                 <option value="">Todas</option>
                 <option value={PRIORIDADES.ALTA}>Alta</option>
@@ -154,13 +154,13 @@ const ReclamosEstudiante = () => {
 
             {/* Estado */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Estado
               </label>
               <select
                 value={filters.state}
                 onChange={(e) => handleFilterChange('state', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
               >
                 <option value="">Todos</option>
                 <option value={ESTADOS.AGENDADA}>Pendiente</option>
@@ -171,33 +171,33 @@ const ReclamosEstudiante = () => {
 
             {/* Desde */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Desde
               </label>
               <input
                 type="date"
                 value={filters.from}
                 onChange={(e) => handleFilterChange('from', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
               />
             </div>
 
             {/* Hasta */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Hasta
               </label>
               <input
                 type="date"
                 value={filters.to}
                 onChange={(e) => handleFilterChange('to', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
               />
             </div>
 
             {/* Búsqueda */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
                 Buscar
               </label>
               <input
@@ -205,7 +205,7 @@ const ReclamosEstudiante = () => {
                 placeholder="Buscar..."
                 value={filters.q}
                 onChange={(e) => handleFilterChange('q', e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#26BBFF] focus:ring-[#26BBFF] text-sm"
+                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate placeholder:text-slate/50 shadow-sm focus:border-primary focus:ring-primary text-sm"
               />
             </div>
           </div>
@@ -215,7 +215,7 @@ const ReclamosEstudiante = () => {
             <div className="mt-4 flex justify-end">
               <button
                 onClick={clearFilters}
-                className="text-sm text-gray-600 hover:text-gray-900 underline"
+                className="text-sm text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate underline"
               >
                 Limpiar filtros
               </button>
@@ -226,7 +226,7 @@ const ReclamosEstudiante = () => {
         {/* Contenido */}
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#26BBFF]"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : claims.length === 0 ? (
           <EmptyState
@@ -236,7 +236,7 @@ const ReclamosEstudiante = () => {
             action={
               <button
                 onClick={handleNewClaim}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#26BBFF] hover:bg-[#1da9e6]"
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-colors"
               >
                 + Crear Nuevo
               </button>

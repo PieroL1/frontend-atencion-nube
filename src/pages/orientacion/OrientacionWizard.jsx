@@ -70,12 +70,17 @@ const OrientacionWizard = () => {
         activeQuestionnaire.id
       );
 
-      if (existingResult) {
-        // Mostrar opción de retomar o reiniciar
+      console.log('🔍 Resultado existente encontrado:', existingResult);
+
+      if (existingResult && existingResult.result) {
+        // Si hay un resultado previo, cargar las rutas completas
+        console.log('✅ Mostrando resultados previos');
         setResults(existingResult);
         setStep('results');
         return;
       }
+
+      console.log('➡️ No hay resultados previos, iniciando cuestionario');
 
       // 4. Cargar primera pregunta (Q1)
       await loadQ1(activeQuestionnaire.id);
@@ -261,7 +266,7 @@ const OrientacionWizard = () => {
 
   if (step === 'loading') {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-gray-50 dark:bg-ink py-12">
         <Loader message="Cargando cuestionario vocacional..." />
       </div>
     );
@@ -269,7 +274,7 @@ const OrientacionWizard = () => {
 
   if (step === 'error') {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-gray-50 dark:bg-ink py-12">
         <ErrorState
           title="Error al cargar cuestionario"
           message={error?.message || 'No se pudo cargar el cuestionario vocacional'}
@@ -281,16 +286,16 @@ const OrientacionWizard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-ink py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl font-bold text-ink dark:text-slate mb-2">
                 🎓 Orientación Vocacional
               </h1>
-              <p className="text-gray-600">
+              <p className="text-slate dark:text-slate/70">
                 Descubre tu ruta de aprendizaje personalizada
               </p>
             </div>
@@ -298,7 +303,7 @@ const OrientacionWizard = () => {
             {step !== 'results' && (
               <button
                 onClick={() => navigate('/dashboard')}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate transition-colors"
               >
                 ← Volver al inicio
               </button>
@@ -306,17 +311,17 @@ const OrientacionWizard = () => {
           </div>
 
           {questionnaire && (
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h2 className="font-semibold text-gray-900">{questionnaire.title}</h2>
+            <div className="bg-white dark:bg-night rounded-lg p-4 shadow-sm dark:shadow-slate/10">
+              <h2 className="font-semibold text-ink dark:text-slate">{questionnaire.title}</h2>
               {questionnaire.description && (
-                <p className="text-sm text-gray-600 mt-1">{questionnaire.description}</p>
+                <p className="text-sm text-slate dark:text-slate/70 mt-1">{questionnaire.description}</p>
               )}
             </div>
           )}
         </div>
 
         {/* Content */}
-        <div className="bg-white rounded-xl shadow-lg">
+        <div className="bg-white dark:bg-night rounded-xl shadow-lg dark:shadow-slate/10">
           {step === 'q1' && (
             <StepQuestion
               question={q1Data.question}
@@ -344,7 +349,7 @@ const OrientacionWizard = () => {
                 <button
                   onClick={handleBack}
                   disabled={loading}
-                  className="text-blue-600 hover:text-blue-700 font-medium disabled:opacity-50"
+                  className="text-primary hover:text-primary/80 font-medium disabled:opacity-50"
                 >
                   ← Volver a la pregunta anterior
                 </button>
@@ -357,10 +362,10 @@ const OrientacionWizard = () => {
               {/* Results header */}
               <div className="mb-8 text-center">
                 <div className="text-6xl mb-4">🎉</div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-3xl font-bold text-ink dark:text-slate mb-2">
                   ¡Tu Ruta de Aprendizaje está Lista!
                 </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">
+                <p className="text-slate dark:text-slate/70 max-w-2xl mx-auto">
                   {results?.recommendation || 'Basado en tus respuestas, hemos generado una ruta personalizada.'}
                 </p>
               </div>
@@ -368,7 +373,7 @@ const OrientacionWizard = () => {
               {/* Profile badge */}
               {results?.profile && (
                 <div className="mb-6 text-center">
-                  <span className="inline-block bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold">
+                  <span className="inline-block bg-blue-100 dark:bg-primary/20 text-blue-800 dark:text-primary px-6 py-2 rounded-full font-semibold">
                     📊 Perfil: {results.profile}
                   </span>
                 </div>
@@ -390,17 +395,17 @@ const OrientacionWizard = () => {
               )}
 
               {/* Actions */}
-              <div className="flex gap-4 justify-center pt-6 border-t border-gray-200">
+              <div className="flex gap-4 justify-center pt-6 border-t border-gray-200 dark:border-slate/20">
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors font-medium"
                 >
                   Volver al Dashboard
                 </button>
                 <button
                   onClick={handleReset}
                   disabled={loading}
-                  className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium disabled:opacity-50"
+                  className="px-6 py-3 bg-gray-200 dark:bg-ink/50 text-ink dark:text-slate rounded-lg hover:bg-gray-300 dark:hover:bg-ink/70 transition-colors font-medium disabled:opacity-50"
                 >
                   🔄 Reiniciar Test
                 </button>
@@ -408,7 +413,7 @@ const OrientacionWizard = () => {
 
               {/* Timestamp */}
               {results?.result?.created_at && (
-                <p className="text-center text-sm text-gray-500 mt-6">
+                <p className="text-center text-sm text-slate dark:text-slate/70 mt-6">
                   Resultado generado el {new Date(results.result.created_at).toLocaleString('es-PE', {
                     timeZone: 'America/Lima',
                     dateStyle: 'long',

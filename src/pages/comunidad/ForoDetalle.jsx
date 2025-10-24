@@ -121,8 +121,8 @@ export default function ForoDetalle() {
   if (loading) {
     return (
       <div className="max-w-5xl mx-auto p-6 text-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-        <p className="text-gray-600 mt-4">Cargando foro...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+        <p className="text-slate dark:text-slate/70 mt-4">Cargando foro...</p>
       </div>
     );
   }
@@ -138,10 +138,10 @@ export default function ForoDetalle() {
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* Header del foro */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-6 mb-6">
         <button
           onClick={() => navigate('/comunidad/foros')}
-          className="text-blue-600 hover:text-blue-800 mb-4 flex items-center"
+          className="text-primary hover:text-primary/80 mb-4 flex items-center"
         >
           <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -151,18 +151,18 @@ export default function ForoDetalle() {
 
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-ink dark:text-slate mb-2">
               {foro.title}
             </h1>
-            <p className="text-gray-600">{foro.description}</p>
+            <p className="text-slate dark:text-slate/70">{foro.description}</p>
           </div>
           <span className={`px-3 py-1 text-sm rounded-full ${getForumStateColor(foro.state)}`}>
             {foro.state}
           </span>
         </div>
 
-        <div className="flex items-center justify-between border-t pt-4">
-          <div className="flex gap-6 text-sm text-gray-600">
+        <div className="flex items-center justify-between border-t dark:border-slate/20 pt-4">
+          <div className="flex gap-6 text-sm text-slate dark:text-slate/70">
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
@@ -175,7 +175,7 @@ export default function ForoDetalle() {
             {foro.is_member && (
               <button
                 onClick={() => setShowMembersModal(true)}
-                className="flex items-center hover:text-blue-600 transition"
+                className="flex items-center hover:text-primary transition"
               >
                 <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
@@ -190,10 +190,10 @@ export default function ForoDetalle() {
               {foro.role && (
                 <span className={`px-3 py-1 text-sm rounded ${
                   foro.role === 'Owner' 
-                    ? 'bg-purple-100 text-purple-800' 
+                    ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400' 
                     : foro.role === 'Moderador'
-                    ? 'bg-blue-100 text-blue-800'
-                    : 'bg-gray-100 text-gray-800'
+                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400'
+                    : 'bg-gray-100 dark:bg-slate/20 text-gray-800 dark:text-slate'
                 }`}>
                   {foro.role === 'Owner' ? '👑 ' : foro.role === 'Moderador' ? '🛡️ ' : ''}
                   {foro.role}
@@ -202,7 +202,7 @@ export default function ForoDetalle() {
               {!foro.is_owner && (
                 <button
                   onClick={handleLeave}
-                  className="px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-50 transition"
+                  className="px-4 py-2 border border-red-600 dark:border-red-700 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition"
                 >
                   Salir del foro
                 </button>
@@ -211,7 +211,7 @@ export default function ForoDetalle() {
           ) : (
             <button
               onClick={handleJoin}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition"
             >
               Unirme al foro
             </button>
@@ -221,21 +221,21 @@ export default function ForoDetalle() {
 
       {/* Formulario crear post (solo si es miembro) */}
       {foro.is_member && (
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold mb-4">Nueva publicación</h2>
+        <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-6 mb-6">
+          <h2 className="text-lg font-semibold text-ink dark:text-slate mb-4">Nueva publicación</h2>
           <form onSubmit={handleCreatePost}>
             <textarea
               value={newPostContent}
               onChange={(e) => setNewPostContent(e.target.value)}
               placeholder="Escribe tu publicación..."
               rows={4}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-2 bg-white dark:bg-night/50 border border-gray-300 dark:border-slate/30 text-ink dark:text-slate placeholder:text-gray-400 dark:placeholder:text-slate/50 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
             />
             <div className="flex justify-end mt-4">
               <button
                 type="submit"
                 disabled={posting || !newPostContent.trim()}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:bg-slate/30 disabled:cursor-not-allowed transition"
               >
                 {posting ? 'Publicando...' : 'Publicar'}
               </button>
@@ -246,7 +246,7 @@ export default function ForoDetalle() {
 
       {/* Lista de posts */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-semibold text-ink dark:text-slate mb-4">
           Publicaciones ({posts.length})
         </h2>
         {posts.length === 0 ? (

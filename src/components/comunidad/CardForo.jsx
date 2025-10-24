@@ -22,10 +22,10 @@ export default function CardForo({ foro, onJoin, onLeave }) {
   return (
     <div
       onClick={handleClick}
-      className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer p-6"
+      className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 hover:shadow-md dark:hover:shadow-slate/20 transition-shadow cursor-pointer p-6"
     >
       <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-gray-900 flex-1">
+        <h3 className="text-lg font-semibold text-ink dark:text-slate flex-1">
           {foro.title}
         </h3>
         <span className={`px-2 py-1 text-xs rounded-full ${getForumStateColor(foro.state)}`}>
@@ -33,11 +33,11 @@ export default function CardForo({ foro, onJoin, onLeave }) {
         </span>
       </div>
 
-      <p className="text-gray-600 text-sm mb-4">
+      <p className="text-slate dark:text-slate/70 text-sm mb-4">
         {truncateText(foro.description, 120)}
       </p>
 
-      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+      <div className="flex items-center justify-between text-sm text-slate dark:text-slate/70 mb-4">
         <span className="flex items-center">
           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
@@ -59,26 +59,26 @@ export default function CardForo({ foro, onJoin, onLeave }) {
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-slate dark:text-slate/70">
           Creado: {formatDate(foro.creation_date)}
         </span>
         
         {/* Si eres Owner, mostrar badge */}
         {foro.is_owner ? (
-          <span className="px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded font-medium">
+          <span className="px-3 py-1 text-sm bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded font-medium">
             👑 Propietario
           </span>
         ) : foro.is_member ? (
           <button
             onClick={handleLeaveClick}
-            className="px-3 py-1 text-sm border border-red-600 text-red-600 rounded hover:bg-red-50 transition"
+            className="px-3 py-1 text-sm border border-red-600 dark:border-red-700 text-red-600 dark:text-red-400 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition"
           >
             Salir
           </button>
         ) : (
           <button
             onClick={handleJoinClick}
-            className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="px-3 py-1 text-sm bg-primary text-white rounded hover:bg-primary/90 transition"
           >
             Unirme
           </button>

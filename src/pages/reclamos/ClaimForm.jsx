@@ -94,21 +94,21 @@ const ClaimForm = () => {
   const isOverLimit = charCount > charLimit;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-ink">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <button
             onClick={handleCancel}
-            className="mb-4 text-sm text-gray-600 hover:text-gray-900 flex items-center"
+            className="mb-4 text-sm text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate flex items-center"
           >
             ← Volver
           </button>
           
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-ink dark:text-slate">
             Nuevo Reclamo o Sugerencia
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-slate dark:text-slate/70">
             Completa el formulario para enviar tu reclamo o sugerencia
           </p>
         </div>
@@ -116,11 +116,11 @@ const ClaimForm = () => {
 
       {/* Formulario */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-6">
           {/* Tipo */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tipo <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-ink dark:text-slate mb-2">
+              Tipo <span className="text-red-500 dark:text-red-400">*</span>
             </label>
             <div className="grid grid-cols-2 gap-4">
               <button
@@ -128,13 +128,13 @@ const ClaimForm = () => {
                 onClick={() => setFormData(prev => ({ ...prev, type: TIPOS.RECLAMO }))}
                 className={`p-4 border-2 rounded-lg text-center transition-colors ${
                   formData.type === TIPOS.RECLAMO
-                    ? 'border-red-500 bg-red-50 text-red-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
+                    : 'border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate hover:border-gray-400 dark:hover:border-slate/50'
                 }`}
               >
                 <div className="text-2xl mb-2">⚠️</div>
                 <div className="font-semibold">Reclamo</div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-slate dark:text-slate/70 mt-1">
                   Reportar un problema
                 </div>
               </button>
@@ -144,13 +144,13 @@ const ClaimForm = () => {
                 onClick={() => setFormData(prev => ({ ...prev, type: TIPOS.SUGERENCIA }))}
                 className={`p-4 border-2 rounded-lg text-center transition-colors ${
                   formData.type === TIPOS.SUGERENCIA
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                    : 'border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate hover:border-gray-400 dark:hover:border-slate/50'
                 }`}
               >
                 <div className="text-2xl mb-2">💡</div>
                 <div className="font-semibold">Sugerencia</div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-slate dark:text-slate/70 mt-1">
                   Proponer una mejora
                 </div>
               </button>
@@ -159,8 +159,8 @@ const ClaimForm = () => {
 
           {/* Categoría */}
           <div className="mb-6">
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-              Categoría <span className="text-red-500">*</span>
+            <label htmlFor="category" className="block text-sm font-medium text-ink dark:text-slate mb-2">
+              Categoría <span className="text-red-500 dark:text-red-400">*</span>
             </label>
             <input
               type="text"
@@ -169,19 +169,19 @@ const ClaimForm = () => {
               value={formData.category}
               onChange={handleChange}
               placeholder="Ej: Infraestructura, Académico, Administrativo..."
-              className={`w-full rounded-md shadow-sm focus:ring-[#26BBFF] focus:border-[#26BBFF] ${
-                errors.category ? 'border-red-500' : 'border-gray-300'
+              className={`w-full rounded-md border shadow-sm bg-white dark:bg-night/50 text-ink dark:text-slate placeholder-slate/50 dark:placeholder:text-slate/50 focus:ring-primary focus:border-primary focus:bg-white dark:focus:bg-night/50 ${
+                errors.category ? 'border-red-500 dark:border-red-600' : 'border-gray-300 dark:border-slate/30'
               }`}
             />
             {errors.category && (
-              <p className="mt-1 text-sm text-red-600">{errors.category}</p>
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.category}</p>
             )}
           </div>
 
           {/* Descripción */}
           <div className="mb-6">
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-              Descripción <span className="text-red-500">*</span>
+            <label htmlFor="description" className="block text-sm font-medium text-ink dark:text-slate mb-2">
+              Descripción <span className="text-red-500 dark:text-red-400">*</span>
             </label>
             <textarea
               id="description"
@@ -190,15 +190,15 @@ const ClaimForm = () => {
               value={formData.description}
               onChange={handleChange}
               placeholder="Describe tu reclamo o sugerencia de manera clara y detallada..."
-              className={`w-full rounded-md shadow-sm focus:ring-[#26BBFF] focus:border-[#26BBFF] ${
-                errors.description || isOverLimit ? 'border-red-500' : 'border-gray-300'
+              className={`w-full rounded-md border shadow-sm bg-white dark:bg-night/50 text-ink dark:text-slate placeholder-slate/50 dark:placeholder:text-slate/50 focus:ring-primary focus:border-primary focus:bg-white dark:focus:bg-night/50 ${
+                errors.description || isOverLimit ? 'border-red-500 dark:border-red-600' : 'border-gray-300 dark:border-slate/30'
               }`}
             />
             <div className="mt-1 flex justify-between items-center">
               {errors.description && (
-                <p className="text-sm text-red-600">{errors.description}</p>
+                <p className="text-sm text-red-600 dark:text-red-400">{errors.description}</p>
               )}
-              <p className={`text-xs ml-auto ${isOverLimit ? 'text-red-600' : isNearLimit ? 'text-yellow-600' : 'text-gray-500'}`}>
+              <p className={`text-xs ml-auto ${isOverLimit ? 'text-red-600 dark:text-red-400' : isNearLimit ? 'text-yellow-600 dark:text-yellow-500' : 'text-slate dark:text-slate/70'}`}>
                 {charCount} / {charLimit} caracteres
               </p>
             </div>
@@ -210,7 +210,7 @@ const ClaimForm = () => {
               type="button"
               onClick={handleCancel}
               disabled={loading}
-              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#26BBFF] disabled:opacity-50"
+              className="px-4 py-2 border border-gray-300 dark:border-slate/30 rounded-md shadow-sm text-sm font-medium text-ink dark:text-slate bg-white dark:bg-night/50 hover:bg-gray-50 dark:hover:bg-night/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-colors"
             >
               Cancelar
             </button>
@@ -218,7 +218,7 @@ const ClaimForm = () => {
             <button
               type="submit"
               disabled={loading || isOverLimit}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#26BBFF] hover:bg-[#1da9e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#26BBFF] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? (
                 <>

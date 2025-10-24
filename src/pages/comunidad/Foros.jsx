@@ -133,14 +133,14 @@ export default function Foros() {
         {/* Header */}
         <div className="mb-6 flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Foros Comunitarios</h1>
-            <p className="text-gray-600">
+            <h1 className="text-3xl font-bold text-ink dark:text-slate mb-2">Foros Comunitarios</h1>
+            <p className="text-slate dark:text-slate/70">
               Únete a la conversación y comparte conocimientos con otros estudiantes
             </p>
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2"
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white rounded-lg transition flex items-center gap-2"
           >
             <span className="text-xl">+</span>
             Crear Foro
@@ -148,13 +148,13 @@ export default function Foros() {
         </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 mb-6 border-b">
+      <div className="flex gap-4 mb-6 border-b border-gray-200 dark:border-slate/20">
         <button
           onClick={() => setView('all')}
           className={`px-4 py-2 font-medium transition ${
             view === 'all'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate'
           }`}
         >
           Todos los foros
@@ -163,8 +163,8 @@ export default function Foros() {
           onClick={() => setView('my')}
           className={`px-4 py-2 font-medium transition ${
             view === 'my'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate'
           }`}
         >
           Mis foros
@@ -173,19 +173,19 @@ export default function Foros() {
 
       {/* Filtros (solo en vista "all") */}
       {view === 'all' && (
-        <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <form onSubmit={handleSearch} className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-4 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <input
               type="text"
               placeholder="Buscar por título..."
               value={filters.titulo}
               onChange={(e) => setFilters({ ...filters, titulo: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 dark:border-slate/30 rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:ring-2 focus:ring-primary focus:border-transparent"
             />
             <select
               value={filters.programa}
               onChange={(e) => setFilters({ ...filters, programa: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 dark:border-slate/30 rounded-lg bg-white dark:bg-night/50 text-ink dark:text-slate focus:ring-2 focus:ring-primary focus:border-transparent"
             >
               <option value="">Todos los programas</option>
               {ACADEMIC_PROGRAMS.map((prog) => (
@@ -197,14 +197,14 @@ export default function Foros() {
             <div className="flex gap-2">
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                className="flex-1 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition"
               >
                 Buscar
               </button>
               <button
                 type="button"
                 onClick={handleClearFilters}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                className="px-4 py-2 border border-gray-300 dark:border-slate/30 text-ink dark:text-slate rounded-lg hover:bg-gray-50 dark:hover:bg-night/50 transition"
               >
                 Limpiar
               </button>
@@ -216,8 +216,8 @@ export default function Foros() {
       {/* Lista de foros */}
       {loading ? (
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="text-gray-600 mt-4">Cargando foros...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="text-slate dark:text-slate/70 mt-4">Cargando foros...</p>
         </div>
       ) : foros.length === 0 ? (
         <EmptyState
@@ -243,13 +243,13 @@ export default function Foros() {
 
       {/* Modal Crear Foro */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-night rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900">Crear Nuevo Foro</h2>
+              <h2 className="text-2xl font-bold text-ink dark:text-slate">Crear Nuevo Foro</h2>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
+                className="text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate text-2xl"
               >
                 ×
               </button>
@@ -258,51 +258,51 @@ export default function Foros() {
             <form onSubmit={handleCreateForo} className="space-y-4">
               {/* Título */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Título del Foro <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium text-ink dark:text-slate mb-1">
+                  Título del Foro <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Ej: Programación en Python para principiantes"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   maxLength={100}
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-slate dark:text-slate/70 mt-1">
                   {formData.title.length}/100 caracteres
                 </p>
               </div>
 
               {/* Descripción */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Descripción <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium text-ink dark:text-slate mb-1">
+                  Descripción <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe de qué tratará este foro..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   rows={4}
                   maxLength={250}
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-slate dark:text-slate/70 mt-1">
                   {formData.description.length}/250 caracteres
                 </p>
               </div>
 
               {/* Programa Académico */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Programa Académico <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium text-ink dark:text-slate mb-1">
+                  Programa Académico <span className="text-red-500 dark:text-red-400">*</span>
                 </label>
                 <select
                   value={formData.associated_program}
                   onChange={(e) => setFormData({ ...formData, associated_program: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   required
                 >
                   <option value="">Selecciona un programa</option>
@@ -319,14 +319,14 @@ export default function Foros() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-slate/30 text-ink dark:text-slate rounded-lg hover:bg-gray-50 dark:hover:bg-night/50 transition"
                   disabled={creating}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
+                  className="flex-1 px-4 py-2 bg-green-600 dark:bg-green-700 text-white rounded-lg hover:bg-green-700 dark:hover:bg-green-800 transition disabled:bg-gray-400 dark:disabled:bg-gray-600"
                   disabled={creating}
                 >
                   {creating ? 'Enviando...' : 'Enviar para Aprobación'}

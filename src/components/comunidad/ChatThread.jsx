@@ -25,9 +25,9 @@ export default function ChatThread({ messages, onSendMessage, currentUserId }) {
   return (
     <div className="flex flex-col h-full">
       {/* Mensajes */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-ink">
         {messages.length === 0 ? (
-          <div className="text-center text-gray-500 py-8">
+          <div className="text-center text-slate dark:text-slate/70 py-8">
             <p>No hay mensajes aún</p>
             <p className="text-sm mt-2">Inicia la conversación</p>
           </div>
@@ -42,8 +42,8 @@ export default function ChatThread({ messages, onSendMessage, currentUserId }) {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                     isMine
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-900'
+                      ? 'bg-primary text-white'
+                      : 'bg-white dark:bg-night text-ink dark:text-slate'
                   }`}
                 >
                   <p className="whitespace-pre-wrap break-words">
@@ -51,7 +51,7 @@ export default function ChatThread({ messages, onSendMessage, currentUserId }) {
                   </p>
                   <p
                     className={`text-xs mt-1 ${
-                      isMine ? 'text-blue-100' : 'text-gray-500'
+                      isMine ? 'text-white/70' : 'text-slate dark:text-slate/70'
                     }`}
                   >
                     {getRelativeTime(msg.sent_date)}
@@ -68,19 +68,19 @@ export default function ChatThread({ messages, onSendMessage, currentUserId }) {
       </div>
 
       {/* Form enviar mensaje */}
-      <div className="border-t bg-white p-4">
+      <div className="border-t border-gray-200 dark:border-slate/20 bg-white dark:bg-night p-4">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Escribe un mensaje..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 px-4 py-2 border border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
           />
           <button
             type="submit"
             disabled={!newMessage.trim()}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition"
           >
             Enviar
           </button>

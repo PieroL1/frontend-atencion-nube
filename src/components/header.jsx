@@ -1,11 +1,12 @@
 // src/components/header.jsx
 import { NavLink, useNavigate } from 'react-router-dom';
 import { getUser, getRole, logout } from '../auth';
+import ThemeToggle from './ui/ThemeToggle';
 import logo from '../assets/incadev-mark.png';
 
 const linkCls = ({ isActive }) =>
   `px-3 py-2 rounded-lg text-sm transition
-   ${isActive ? 'bg-primary/10 text-primary' : 'text-[#111115]/80 hover:bg-gray-100'}`;
+   ${isActive ? 'bg-primary/10 text-primary' : 'text-ink/80 dark:text-slate/80 hover:bg-gray-100 dark:hover:bg-slate/10'}`;
 
 export default function Header() {
   const nav = useNavigate();
@@ -22,12 +23,12 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white border-b border-gray-200">
+    <header className="w-full bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
       <div className="max-w-7xl mx-auto h-14 px-4 flex items-center justify-between">
         {/* Marca */}
         <div className="flex items-center gap-3">
           <img src={logo} alt="INCADEV" className="h-6 w-auto" />
-          <span className="text-[#111115] font-semibold tracking-wide">
+          <span className="text-ink dark:text-slate font-semibold tracking-wide">
             Atención y Soporte – <span className="text-primary">INCADEV</span>
           </span>
 
@@ -48,14 +49,16 @@ export default function Header() {
                 <NavLink to="/employee" className={linkCls}>Panel</NavLink>
                 <NavLink to="/atencion" className={linkCls}>Atenciones</NavLink>
                 <NavLink to="/reclamos" className={linkCls}>Reclamos</NavLink>
+                <NavLink to="/empleado/foros" className={linkCls}>Gestión de Foros</NavLink>
               </>
             )}
           </nav>
         </div>
 
-        {/* Usuario */}
+        {/* Usuario y tema */}
         <div className="flex items-center gap-3">
-          <span className="text-sm text-[#111115]/80 hidden sm:inline">{name}</span>
+          <ThemeToggle />
+          <span className="text-sm text-ink/80 dark:text-slate/80 hidden sm:inline">{name}</span>
           <button
             onClick={onLogout}
             className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition"

@@ -29,20 +29,20 @@ export default function BienestarEstudiante() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F7F9]">
+    <div className="min-h-screen bg-gray-50 dark:bg-ink">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-ink mb-2">
+          <h1 className="text-3xl font-bold text-ink dark:text-slate mb-2">
             Bienestar Estudiantil
           </h1>
-          <p className="text-slate">
+          <p className="text-slate dark:text-slate/70">
             Gestiona tus tutorías y participa en actividades extracurriculares
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="mb-6 border-b border-gray-200">
+        <div className="mb-6 border-b border-gray-200 dark:border-slate/20">
           <nav className="flex space-x-8">
             {TABS.map((tab) => (
               <button
@@ -51,7 +51,7 @@ export default function BienestarEstudiante() {
                 className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   tabActivo === tab.id
                     ? "border-primary text-primary"
-                    : "border-transparent text-slate hover:text-ink hover:border-gray-300"
+                    : "border-transparent text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate hover:border-gray-300 dark:hover:border-slate/40"
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -107,11 +107,11 @@ export default function BienestarEstudiante() {
 
           {/* TAB: Historial */}
           {tabActivo === "historial" && (
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-ink mb-4">
+            <div className="bg-white dark:bg-night rounded-lg border border-gray-200 dark:border-slate/20 p-6">
+              <h3 className="text-lg font-semibold text-ink dark:text-slate mb-4">
                 Historial de Tutorías
               </h3>
-              <p className="text-slate mb-4">
+              <p className="text-slate dark:text-slate/70 mb-4">
                 Aquí se mostrarán todas tus tutorías pasadas para que puedas
                 revisarlas.
               </p>

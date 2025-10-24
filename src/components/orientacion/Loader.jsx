@@ -6,8 +6,8 @@ import React from 'react';
 const Loader = ({ message = 'Cargando...' }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
-      <p className="text-gray-600 font-medium">{message}</p>
+      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
+      <p className="text-slate dark:text-slate/70 font-medium">{message}</p>
     </div>
   );
 };

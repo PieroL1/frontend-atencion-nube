@@ -38,9 +38,9 @@ function Placeholder({ title }) {
 
 function ProtectedShell() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-ink">
       <Header />
-      <main className="flex-1 bg-[#F6F7F9]">
+      <main className="flex-1 bg-gray-50 dark:bg-ink">
         <Outlet />
       </main>
       <Footer />

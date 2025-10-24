@@ -5,6 +5,25 @@
 html, body, #root { height: 100%; }
 body { margin: 0; background: #F6F7F9; color: theme('colors.ink'); }
 
+/* Dark mode select options - mejorar visibilidad */
+@layer base {
+  select option {
+    background-color: white;
+    color: #111115;
+  }
+  
+  .dark select option {
+    background-color: #201A2F;
+    color: #848282;
+  }
+  
+  .dark select option:checked,
+  .dark select option:hover {
+    background-color: #26BBFF;
+    color: white;
+  }
+}
+
 /* Reusables */
 @layer components {
   .btn-primary {

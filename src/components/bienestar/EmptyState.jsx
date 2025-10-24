@@ -2,7 +2,7 @@
 export default function EmptyState({ title, message, actionLabel, onAction, icon }) {
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4">
-      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+      <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-4">
         {icon || (
           <svg
             className="w-8 h-8 text-primary"
@@ -19,8 +19,8 @@ export default function EmptyState({ title, message, actionLabel, onAction, icon
           </svg>
         )}
       </div>
-      <h3 className="text-lg font-semibold text-ink mb-2">{title}</h3>
-      <p className="text-slate text-center mb-6 max-w-sm">{message}</p>
+      <h3 className="text-lg font-semibold text-ink dark:text-slate mb-2">{title}</h3>
+      <p className="text-slate dark:text-slate/70 text-center mb-6 max-w-sm">{message}</p>
       {actionLabel && onAction && (
         <button
           onClick={onAction}

@@ -29,7 +29,7 @@ export default function BienestarEstudiante() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-ink">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">

@@ -92,8 +92,9 @@ export default function GestionForos() {
   const stats = getEstadisticas();
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink">
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="mb-6">
         <h1 className="text-3xl font-bold text-ink dark:text-slate mb-2">Gestión de Foros</h1>
         <p className="text-slate dark:text-slate/70">
           Aprobar, rechazar y monitorear foros comunitarios
@@ -300,6 +301,7 @@ export default function GestionForos() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

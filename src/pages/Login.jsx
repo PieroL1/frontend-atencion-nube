@@ -40,27 +40,27 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-hidden relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-ink dark:via-night dark:to-night">
+    <div className="min-h-screen w-full overflow-hidden relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-[#0A0A0F] dark:via-[#0F0D16] dark:to-[#14101D]">
       {/* Decoración de fondo - Formas geométricas flotantes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Círculo grande arriba izquierda */}
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/10 dark:bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/10 dark:bg-primary/10 rounded-full blur-3xl animate-pulse" />
         
         {/* Círculo mediano abajo derecha */}
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-400/10 dark:bg-purple-400/5 rounded-full blur-3xl" 
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-400/10 dark:bg-purple-600/10 rounded-full blur-3xl" 
              style={{ animation: 'pulse 3s ease-in-out infinite' }} />
         
         {/* Círculo pequeño centro */}
-        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-pink-400/10 dark:bg-pink-400/5 rounded-full blur-2xl" 
+        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-pink-400/10 dark:bg-blue-500/8 rounded-full blur-2xl" 
              style={{ animation: 'pulse 4s ease-in-out infinite' }} />
       </div>
 
       {/* Contenedor principal */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4 lg:p-8">
-        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-0 bg-white dark:bg-night shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-slate/20">
+        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-0 bg-white dark:bg-gradient-to-br dark:from-night dark:to-[#1A1525] shadow-2xl dark:shadow-primary/5 rounded-3xl overflow-hidden border border-gray-100 dark:border-primary/20">
           
           {/* PANEL IZQUIERDO - Ilustración y bienvenida */}
-          <div className="hidden lg:flex flex-col justify-center items-center p-12 bg-gradient-to-br from-primary to-blue-600 dark:from-primary/90 dark:to-blue-700 relative overflow-hidden">
+          <div className="hidden lg:flex flex-col justify-center items-center p-12 bg-gradient-to-br from-primary to-blue-600 dark:from-primary/95 dark:to-blue-700 relative overflow-hidden">
             {/* Patrón decorativo de fondo */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-10 left-10 w-32 h-32 border-4 border-white rounded-full" />
@@ -120,10 +120,10 @@ export default function Login() {
 
             {/* Encabezado */}
             <div className="mb-8">
-              <h1 className="text-3xl lg:text-4xl font-bold text-ink dark:text-slate mb-2">
+              <h1 className="text-3xl lg:text-4xl font-bold text-ink dark:text-white mb-2">
                 Iniciar sesión
               </h1>
-              <p className="text-slate dark:text-slate/70 text-base">
+              <p className="text-slate dark:text-slate/80 text-base">
                 Ingresa tus credenciales para continuar
               </p>
             </div>
@@ -148,7 +148,7 @@ export default function Login() {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <span className="text-slate/50 text-lg">📧</span>
+                    <span className="text-slate/50 dark:text-slate/60 text-lg">📧</span>
                   </div>
                   <input
                     type="email"
@@ -156,7 +156,7 @@ export default function Login() {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     required
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate/30 focus:border-primary dark:focus:border-primary outline-none text-ink dark:text-slate bg-white dark:bg-night/50 transition-all placeholder:text-slate/40"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate/40 focus:border-primary dark:focus:border-primary outline-none text-ink dark:text-white bg-white dark:bg-[#1A1525] transition-all placeholder:text-slate/40 dark:placeholder:text-slate/50"
                   />
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function Login() {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <span className="text-slate/50 text-lg">🔒</span>
+                    <span className="text-slate/50 dark:text-slate/60 text-lg">🔒</span>
                   </div>
                   <input
                     type="password"
@@ -176,7 +176,7 @@ export default function Login() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate/30 focus:border-primary dark:focus:border-primary outline-none text-ink dark:text-slate bg-white dark:bg-night/50 transition-all placeholder:text-slate/40"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate/40 focus:border-primary dark:focus:border-primary outline-none text-ink dark:text-white bg-white dark:bg-[#1A1525] transition-all placeholder:text-slate/40 dark:placeholder:text-slate/50"
                   />
                 </div>
               </div>

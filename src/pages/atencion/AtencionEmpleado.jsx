@@ -135,8 +135,9 @@ export default function AtencionEmpleado() {
   const filtered = useMemo(() => items, [items]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink">
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-2xl font-semibold text-ink dark:text-slate">Atenciones (Empleado)</h1>
           <p className="text-sm text-slate dark:text-slate/70">Gestiono solicitudes: cambio estado, comento y administro tipos.</p>
@@ -355,6 +356,7 @@ export default function AtencionEmpleado() {
       )}
 
       {loading && <div className="mt-4 text-sm text-slate dark:text-slate/70">Cargando…</div>}
+      </div>
     </div>
   );
 }

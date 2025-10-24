@@ -26,12 +26,8 @@ export default function TutoriasInstructorLista({
       const instructorId = user.instructor_id || user.id;
       console.log('🔍 Cargando tutorías para instructor_id:', instructorId);
       
-      const params = { instructor_id: instructorId };
-
-      // NO filtrar por estado en la petición, hacer filtro en cliente
-      // El backend no soporta múltiples estados en un solo request
-
-      const data = await listarTutorias(params);
+      // Usar listarTutorias con filtro por instructor_id (filtra en frontend)
+      const data = await listarTutorias({ instructor_id: instructorId });
       console.log('📦 Tutorías recibidas del backend:', data.length);
 
       // Aplicar filtro de estado en cliente (soporta múltiples)

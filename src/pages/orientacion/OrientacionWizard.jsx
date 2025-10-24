@@ -266,7 +266,7 @@ const OrientacionWizard = () => {
 
   if (step === 'loading') {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-ink py-12">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink py-12">
         <Loader message="Cargando cuestionario vocacional..." />
       </div>
     );
@@ -274,7 +274,7 @@ const OrientacionWizard = () => {
 
   if (step === 'error') {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-ink py-12">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink py-12">
         <ErrorState
           title="Error al cargar cuestionario"
           message={error?.message || 'No se pudo cargar el cuestionario vocacional'}
@@ -286,7 +286,7 @@ const OrientacionWizard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-ink py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="mb-8">

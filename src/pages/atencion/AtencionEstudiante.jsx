@@ -94,8 +94,9 @@ export default function AtencionEstudiante() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-6">
-      <h1 className="text-2xl font-semibold text-ink dark:text-slate mb-3">Atención (Estudiante)</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink">
+      <div className="max-w-5xl mx-auto px-6 py-6">
+        <h1 className="text-2xl font-semibold text-ink dark:text-slate mb-3">Atención (Estudiante)</h1>
 
       {/* Formulario: creo solicitud con type_id + description */}
       <form onSubmit={createSolicitud} className="bg-white dark:bg-night border border-gray-200 dark:border-slate/20 rounded-2xl p-4 mb-4">
@@ -229,6 +230,7 @@ export default function AtencionEstudiante() {
       )}
 
       {loading && <div className="mt-4 text-sm text-slate dark:text-slate/70">Cargando…</div>}
+      </div>
     </div>
   );
 }

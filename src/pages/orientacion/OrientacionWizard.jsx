@@ -286,36 +286,53 @@ const OrientacionWizard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink py-8">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50/50 via-purple-50/30 to-pink-50/30 dark:from-coal dark:to-ink py-8">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
+        {/* Header mejorado */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-4xl font-bold text-ink dark:text-slate mb-2">
-                🎓 Orientación Vocacional
-              </h1>
-              <p className="text-slate dark:text-slate/70">
-                Descubre tu ruta de aprendizaje personalizada
-              </p>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="p-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl shadow-lg shadow-purple-500/30">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold text-ink dark:text-slate mb-2">
+                  Orientación Vocacional
+                </h1>
+                <p className="text-slate dark:text-slate/70 text-lg">
+                  Descubre tu ruta de aprendizaje personalizada ✨
+                </p>
+              </div>
             </div>
             
             {step !== 'results' && (
               <button
                 onClick={() => navigate('/dashboard')}
-                className="text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate transition-colors"
+                className="px-4 py-2 rounded-xl text-slate dark:text-slate/70 hover:bg-white dark:hover:bg-night hover:text-ink dark:hover:text-slate transition-all flex items-center gap-2"
               >
-                ← Volver al inicio
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Volver
               </button>
             )}
           </div>
 
           {questionnaire && (
-            <div className="bg-white dark:bg-night rounded-lg p-4 shadow-sm dark:shadow-slate/10">
-              <h2 className="font-semibold text-ink dark:text-slate">{questionnaire.title}</h2>
-              {questionnaire.description && (
-                <p className="text-sm text-slate dark:text-slate/70 mt-1">{questionnaire.description}</p>
-              )}
+            <div className="bg-white dark:bg-night rounded-2xl p-6 shadow-lg border-2 border-purple-200 dark:border-purple-900/30">
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-purple-500 dark:text-purple-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h2 className="font-bold text-ink dark:text-slate text-lg">{questionnaire.title}</h2>
+                  {questionnaire.description && (
+                    <p className="text-slate dark:text-slate/70 mt-1">{questionnaire.description}</p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -358,68 +375,84 @@ const OrientacionWizard = () => {
           )}
 
           {step === 'results' && (
-            <div className="p-6">
-              {/* Results header */}
-              <div className="mb-8 text-center">
-                <div className="text-6xl mb-4">🎉</div>
-                <h2 className="text-3xl font-bold text-ink dark:text-slate mb-2">
+            <div className="p-8">
+              {/* Results header con animación */}
+              <div className="mb-10 text-center animate-fade-in">
+                <div className="text-7xl mb-6 animate-bounce">🎉</div>
+                <h2 className="text-4xl font-bold text-ink dark:text-slate mb-4">
                   ¡Tu Ruta de Aprendizaje está Lista!
                 </h2>
-                <p className="text-slate dark:text-slate/70 max-w-2xl mx-auto">
-                  {results?.recommendation || 'Basado en tus respuestas, hemos generado una ruta personalizada.'}
+                <p className="text-slate dark:text-slate/70 max-w-2xl mx-auto text-lg">
+                  {results?.recommendation || 'Basado en tus respuestas, hemos generado una ruta personalizada para ti.'}
                 </p>
               </div>
 
-              {/* Profile badge */}
+              {/* Profile badge mejorado */}
               {results?.profile && (
-                <div className="mb-6 text-center">
-                  <span className="inline-block bg-blue-100 dark:bg-primary/20 text-blue-800 dark:text-primary px-6 py-2 rounded-full font-semibold">
-                    📊 Perfil: {results.profile}
-                  </span>
+                <div className="mb-8 text-center">
+                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border-2 border-purple-300 dark:border-purple-700/30 text-purple-800 dark:text-purple-300 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Perfil: {results.profile}
+                  </div>
                 </div>
               )}
 
               {/* Routes */}
               {results?.routes && results.routes.length > 0 ? (
-                <div className="space-y-6 mb-8">
+                <div className="space-y-6 mb-10">
                   {results.routes.map((route, idx) => (
                     <RouteCard key={route.id || idx} route={route} index={idx} />
                   ))}
                 </div>
               ) : (
-                <EmptyState
-                  icon="📚"
-                  title="No hay rutas disponibles"
-                  message="Aún no se han configurado rutas de cursos para esta combinación. Contáctanos para más información."
-                />
+                <div className="mb-10">
+                  <EmptyState
+                    icon="📚"
+                    title="No hay rutas disponibles"
+                    message="Aún no se han configurado rutas de cursos para esta combinación. Contáctanos para más información."
+                  />
+                </div>
               )}
 
-              {/* Actions */}
-              <div className="flex gap-4 justify-center pt-6 border-t border-gray-200 dark:border-slate/20">
+              {/* Actions mejoradas */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 border-t-2 border-gray-200 dark:border-slate/20">
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors font-medium"
+                  className="px-8 py-4 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white rounded-xl transition-all font-bold text-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transform hover:scale-105 flex items-center justify-center gap-2"
                 >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
                   Volver al Dashboard
                 </button>
                 <button
                   onClick={handleReset}
                   disabled={loading}
-                  className="px-6 py-3 bg-gray-200 dark:bg-ink/50 text-ink dark:text-slate rounded-lg hover:bg-gray-300 dark:hover:bg-ink/70 transition-colors font-medium disabled:opacity-50"
+                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-xl transition-all font-bold text-lg shadow-lg shadow-purple-500/30 hover:shadow-xl disabled:opacity-50 transform hover:scale-105 flex items-center justify-center gap-2"
                 >
-                  🔄 Reiniciar Test
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Reiniciar Test
                 </button>
               </div>
 
-              {/* Timestamp */}
+              {/* Timestamp mejorado */}
               {results?.result?.created_at && (
-                <p className="text-center text-sm text-slate dark:text-slate/70 mt-6">
-                  Resultado generado el {new Date(results.result.created_at).toLocaleString('es-PE', {
-                    timeZone: 'America/Lima',
-                    dateStyle: 'long',
-                    timeStyle: 'short'
-                  })}
-                </p>
+                <div className="text-center mt-8 p-4 bg-gray-50 dark:bg-slate/10 rounded-xl">
+                  <p className="text-sm text-slate dark:text-slate/70 flex items-center justify-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Resultado generado el {new Date(results.result.created_at).toLocaleString('es-PE', {
+                      timeZone: 'America/Lima',
+                      dateStyle: 'long',
+                      timeStyle: 'short'
+                    })}
+                  </p>
+                </div>
               )}
             </div>
           )}

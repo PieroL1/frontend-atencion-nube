@@ -36,12 +36,25 @@ const ReclamosEstudiante = () => {
       // Obtener user actual del localStorage o context
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       
+      // Construir parámetros desde searchParams para asegurar que estén actualizados
       const params = {
         student_id: user.id,
-        ...Object.fromEntries(
-          Object.entries(filters).filter(([_, v]) => v !== '')
-        ),
       };
+
+      // Agregar filtros desde searchParams
+      const type = searchParams.get('type');
+      const priority = searchParams.get('priority');
+      const state = searchParams.get('state');
+      const from = searchParams.get('from');
+      const to = searchParams.get('to');
+      const q = searchParams.get('q');
+
+      if (type) params.type = type;
+      if (priority) params.priority = priority;
+      if (state) params.state = state;
+      if (from) params.from = from;
+      if (to) params.to = to;
+      if (q) params.q = q;
 
       const data = await listarClaims(params);
       setClaims(data);
@@ -85,24 +98,34 @@ const ReclamosEstudiante = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-coal dark:to-ink">
-      {/* Header */}
-      <div className="bg-white dark:bg-night border-b border-gray-200 dark:border-slate/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-coal dark:to-ink">
+      {/* Header mejorado */}
+      <div className="bg-white dark:bg-night border-b-2 border-gray-200 dark:border-slate/20 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-ink dark:text-slate">
-                Mis Reclamos y Sugerencias
-              </h1>
-              <p className="mt-1 text-sm text-slate dark:text-slate/70">
-                Gestiona tus reclamos y sugerencias
-              </p>
+            <div className="flex items-center gap-4 animate-fade-in">
+              <div className="p-3 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl shadow-lg">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold text-ink dark:text-slate">
+                  Mis Reclamos y Sugerencias
+                </h1>
+                <p className="mt-1 text-lg text-slate dark:text-slate/70">
+                  Gestiona tus reclamos y sugerencias de forma rápida
+                </p>
+              </div>
             </div>
             <button
               onClick={handleNewClaim}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300 hover:scale-105"
             >
-              + Nuevo
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              Nuevo
             </button>
           </div>
         </div>
@@ -115,19 +138,28 @@ const ReclamosEstudiante = () => {
         </div>
       )}
 
-      {/* Filtros */}
+      {/* Filtros mejorados */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white dark:bg-night rounded-lg shadow-sm dark:shadow-slate/10 p-4 mb-6">
+        <div className="bg-white dark:bg-night rounded-2xl shadow-lg dark:shadow-slate/10 p-6 mb-8 border border-gray-200 dark:border-slate/20">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="p-2 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-xl">
+              <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+            </div>
+            <h2 className="text-lg font-bold text-ink dark:text-slate">Filtros</h2>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* Tipo */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Tipo
               </label>
               <select
                 value={filters.type}
                 onChange={(e) => handleFilterChange('type', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               >
                 <option value="">Todos</option>
                 <option value={TIPOS.RECLAMO}>Reclamo</option>
@@ -137,13 +169,13 @@ const ReclamosEstudiante = () => {
 
             {/* Prioridad */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Prioridad
               </label>
               <select
                 value={filters.priority}
                 onChange={(e) => handleFilterChange('priority', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               >
                 <option value="">Todas</option>
                 <option value={PRIORIDADES.ALTA}>Alta</option>
@@ -154,13 +186,13 @@ const ReclamosEstudiante = () => {
 
             {/* Estado */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Estado
               </label>
               <select
                 value={filters.state}
                 onChange={(e) => handleFilterChange('state', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-ink text-ink dark:text-slate shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               >
                 <option value="">Todos</option>
                 <option value={ESTADOS.AGENDADA}>Pendiente</option>
@@ -171,33 +203,33 @@ const ReclamosEstudiante = () => {
 
             {/* Desde */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Desde
               </label>
               <input
                 type="date"
                 value={filters.from}
                 onChange={(e) => handleFilterChange('from', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               />
             </div>
 
             {/* Hasta */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Hasta
               </label>
               <input
                 type="date"
                 value={filters.to}
                 onChange={(e) => handleFilterChange('to', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               />
             </div>
 
             {/* Búsqueda */}
             <div>
-              <label className="block text-xs font-medium text-slate dark:text-slate/70 mb-1">
+              <label className="block text-sm font-bold text-ink dark:text-slate mb-2">
                 Buscar
               </label>
               <input
@@ -205,18 +237,21 @@ const ReclamosEstudiante = () => {
                 placeholder="Buscar..."
                 value={filters.q}
                 onChange={(e) => handleFilterChange('q', e.target.value)}
-                className="w-full rounded-md border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate placeholder:text-slate/50 shadow-sm focus:border-primary focus:ring-primary text-sm"
+                className="w-full rounded-xl border-2 border-gray-300 dark:border-slate/30 bg-white dark:bg-night/50 text-ink dark:text-slate placeholder:text-slate/50 shadow-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-sm font-medium py-2 px-3 transition-all"
               />
             </div>
           </div>
 
-          {/* Botón limpiar filtros */}
+          {/* Botón limpiar filtros mejorado */}
           {Object.values(filters).some(v => v !== '') && (
-            <div className="mt-4 flex justify-end">
+            <div className="mt-6 flex justify-end">
               <button
                 onClick={clearFilters}
-                className="text-sm text-slate dark:text-slate/70 hover:text-ink dark:hover:text-slate underline"
+                className="flex items-center gap-2 text-sm font-bold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors px-4 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20"
               >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 Limpiar filtros
               </button>
             </div>
@@ -225,8 +260,12 @@ const ReclamosEstudiante = () => {
 
         {/* Contenido */}
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div className="flex flex-col justify-center items-center py-16">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-200 dark:border-orange-900/30"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 absolute top-0 left-0"></div>
+            </div>
+            <p className="mt-4 text-slate dark:text-slate/70 font-medium">Cargando reclamos...</p>
           </div>
         ) : claims.length === 0 ? (
           <EmptyState
@@ -236,21 +275,42 @@ const ReclamosEstudiante = () => {
             action={
               <button
                 onClick={handleNewClaim}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 hover:scale-105"
               >
-                + Crear Nuevo
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Crear Nuevo
               </button>
             }
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {claims.map((claim) => (
-              <CardClaim
-                key={claim.id}
-                claim={claim}
-                onClick={() => handleClaimClick(claim.id)}
-              />
-            ))}
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-xl">
+                  <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-bold text-ink dark:text-slate">
+                  Resultados
+                </h2>
+                <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-bold">
+                  {claims.length}
+                </span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {claims.map((claim) => (
+                <CardClaim
+                  key={claim.id}
+                  claim={claim}
+                  onClick={() => handleClaimClick(claim.id)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
